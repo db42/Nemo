@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		103B794B1D2F9D64001B9233 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B794A1D2F9D64001B9233 /* WebViewController.swift */; };
 		10EF1A671D2785D30050DE8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EF1A661D2785D30050DE8A /* AppDelegate.swift */; };
-		10EF1A691D2785D30050DE8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EF1A681D2785D30050DE8A /* ViewController.swift */; };
+		10EF1A691D2785D30050DE8A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EF1A681D2785D30050DE8A /* MainViewController.swift */; };
 		10EF1A6C1D2785D30050DE8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EF1A6A1D2785D30050DE8A /* Main.storyboard */; };
 		10EF1A6E1D2785D30050DE8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10EF1A6D1D2785D30050DE8A /* Assets.xcassets */; };
 		10EF1A711D2785D30050DE8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EF1A6F1D2785D30050DE8A /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		103B794A1D2F9D64001B9233 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		10EF1A631D2785D30050DE8A /* Nemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10EF1A661D2785D30050DE8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		10EF1A681D2785D30050DE8A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		10EF1A681D2785D30050DE8A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		10EF1A6B1D2785D30050DE8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10EF1A6D1D2785D30050DE8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10EF1A701D2785D30050DE8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -55,11 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				10EF1A661D2785D30050DE8A /* AppDelegate.swift */,
-				10EF1A681D2785D30050DE8A /* ViewController.swift */,
+				10EF1A681D2785D30050DE8A /* MainViewController.swift */,
 				10EF1A6A1D2785D30050DE8A /* Main.storyboard */,
 				10EF1A6D1D2785D30050DE8A /* Assets.xcassets */,
 				10EF1A6F1D2785D30050DE8A /* LaunchScreen.storyboard */,
 				10EF1A721D2785D30050DE8A /* Info.plist */,
+				103B794A1D2F9D64001B9233 /* WebViewController.swift */,
 			);
 			path = Nemo;
 			sourceTree = "<group>";
@@ -135,8 +138,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10EF1A691D2785D30050DE8A /* ViewController.swift in Sources */,
+				10EF1A691D2785D30050DE8A /* MainViewController.swift in Sources */,
 				10EF1A671D2785D30050DE8A /* AppDelegate.swift in Sources */,
+				103B794B1D2F9D64001B9233 /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +292,7 @@
 				10EF1A771D2785D30050DE8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,25 +1,100 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mHo-PL-zxF">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main VC-->
+        <scene sceneID="9py-xy-sWw">
+            <objects>
+                <viewController id="mHo-PL-zxF" userLabel="Main VC" customClass="MainViewController" customModule="Nemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HYW-Yj-lRu"/>
+                        <viewControllerLayoutGuide type="bottom" id="cYT-Fb-gMq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aih-3l-MrQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pe-oV-onh" userLabel="Content">
+                                <rect key="frame" x="0.0" y="20" width="320" height="408"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdz-Yq-yUU" userLabel="Bottom">
+                                <rect key="frame" x="0.0" y="428" width="320" height="52"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="dkU-Ia-h83"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qdz-Yq-yUU" firstAttribute="top" secondItem="4pe-oV-onh" secondAttribute="bottom" id="DGg-k8-b4Q"/>
+                            <constraint firstItem="4pe-oV-onh" firstAttribute="leading" secondItem="aih-3l-MrQ" secondAttribute="leading" id="FMH-aR-xgt"/>
+                            <constraint firstAttribute="trailing" secondItem="qdz-Yq-yUU" secondAttribute="trailing" id="FgF-aS-uDv"/>
+                            <constraint firstItem="4pe-oV-onh" firstAttribute="top" secondItem="HYW-Yj-lRu" secondAttribute="bottom" id="NM1-8R-nVm"/>
+                            <constraint firstAttribute="trailing" secondItem="4pe-oV-onh" secondAttribute="trailing" id="OXA-xD-O86"/>
+                            <constraint firstItem="cYT-Fb-gMq" firstAttribute="top" secondItem="qdz-Yq-yUU" secondAttribute="bottom" id="eid-gL-vdt"/>
+                            <constraint firstItem="qdz-Yq-yUU" firstAttribute="leading" secondItem="aih-3l-MrQ" secondAttribute="leading" id="hUt-5R-AaC"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="contentView" destination="4pe-oV-onh" id="VWB-tV-hNS"/>
+                        <outlet property="footerView" destination="qdz-Yq-yUU" id="kiv-pR-RGM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9vj-zA-fja" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="152" y="210"/>
+        </scene>
+        <!--Web VC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewController" id="BYZ-38-t0r" userLabel="Web VC" customClass="WebViewController" customModule="Nemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sip-Lb-KVj">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="iLy-zx-RnT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="go"/>
+                            </textField>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iov-bV-DEq">
+                                <rect key="frame" x="0.0" y="30" width="320" height="538"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Iov-bV-DEq" secondAttribute="bottom" id="CXd-8L-4Ym"/>
+                            <constraint firstItem="sip-Lb-KVj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FBE-il-bUz"/>
+                            <constraint firstItem="Iov-bV-DEq" firstAttribute="top" secondItem="sip-Lb-KVj" secondAttribute="bottom" id="Ixq-r2-QUP"/>
+                            <constraint firstItem="sip-Lb-KVj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="NHT-Sc-z9o"/>
+                            <constraint firstAttribute="trailing" secondItem="Iov-bV-DEq" secondAttribute="trailing" id="Q8Y-Ps-sOe"/>
+                            <constraint firstAttribute="trailing" secondItem="sip-Lb-KVj" secondAttribute="trailing" id="T10-BM-Mk2"/>
+                            <constraint firstItem="Iov-bV-DEq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cCi-ht-g2O"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="textField" destination="sip-Lb-KVj" id="DbL-np-tHB"/>
+                        <outlet property="webView" destination="Iov-bV-DEq" id="h0B-zQ-aeO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="511" y="210"/>
         </scene>
     </scenes>
 </document>
