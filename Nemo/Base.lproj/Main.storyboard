@@ -23,9 +23,41 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdz-Yq-yUU" userLabel="Bottom">
                                 <rect key="frame" x="0.0" y="428" width="320" height="52"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bi0-hS-ttL">
+                                        <rect key="frame" x="0.0" y="0.0" width="276" height="52"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="right" ambiguous="YES" misplaced="YES" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Nag-g2-dcP">
+                                                <rect key="frame" x="238" y="0.0" width="38" height="52"/>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Nag-g2-dcP" firstAttribute="top" secondItem="Bi0-hS-ttL" secondAttribute="top" id="HBH-M3-Xd3"/>
+                                            <constraint firstItem="Nag-g2-dcP" firstAttribute="height" secondItem="Bi0-hS-ttL" secondAttribute="height" id="iBZ-KW-M1d"/>
+                                            <constraint firstAttribute="bottom" secondItem="Nag-g2-dcP" secondAttribute="bottom" id="jeh-3x-Jhs"/>
+                                            <constraint firstItem="Nag-g2-dcP" firstAttribute="leading" secondItem="Bi0-hS-ttL" secondAttribute="leading" constant="238" placeholder="YES" id="moQ-PB-bwJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="Nag-g2-dcP" secondAttribute="trailing" id="ubT-Nf-C8r"/>
+                                        </constraints>
+                                    </scrollView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SjQ-48-AVr">
+                                        <rect key="frame" x="276" y="0.0" width="44" height="52"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="Ohl-Mv-e4Z"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Bi0-hS-ttL" firstAttribute="trailing" secondItem="SjQ-48-AVr" secondAttribute="leading" id="0Yh-Jm-ff8"/>
+                                    <constraint firstItem="Bi0-hS-ttL" firstAttribute="top" secondItem="qdz-Yq-yUU" secondAttribute="top" id="GZ5-P8-VZI"/>
+                                    <constraint firstItem="SjQ-48-AVr" firstAttribute="top" secondItem="qdz-Yq-yUU" secondAttribute="top" id="Gwj-j1-oDZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="Bi0-hS-ttL" secondAttribute="bottom" id="NaH-gX-SsQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="SjQ-48-AVr" secondAttribute="trailing" id="RdT-jS-4Ro"/>
                                     <constraint firstAttribute="height" constant="52" id="dkU-Ia-h83"/>
+                                    <constraint firstAttribute="bottom" secondItem="SjQ-48-AVr" secondAttribute="bottom" id="jF6-Cg-qNW"/>
+                                    <constraint firstItem="Bi0-hS-ttL" firstAttribute="leading" secondItem="qdz-Yq-yUU" secondAttribute="leading" id="tKI-dl-4gJ"/>
+                                    <constraint firstItem="Bi0-hS-ttL" firstAttribute="height" secondItem="qdz-Yq-yUU" secondAttribute="height" id="vse-Ot-rz0"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -43,6 +75,9 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="contentView" destination="4pe-oV-onh" id="VWB-tV-hNS"/>
+                        <outlet property="footerNewTabView" destination="SjQ-48-AVr" id="zLe-lW-xG1"/>
+                        <outlet property="footerScrollView" destination="Bi0-hS-ttL" id="x6g-Fd-ZNQ"/>
+                        <outlet property="footerStackView" destination="Nag-g2-dcP" id="kq9-yx-WHt"/>
                         <outlet property="footerView" destination="qdz-Yq-yUU" id="kiv-pR-RGM"/>
                     </connections>
                 </viewController>
