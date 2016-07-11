@@ -24,18 +24,18 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdz-Yq-yUU" userLabel="Bottom">
                                 <rect key="frame" x="0.0" y="428" width="320" height="52"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bi0-hS-ttL">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bi0-hS-ttL">
                                         <rect key="frame" x="0.0" y="0.0" width="276" height="52"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="right" ambiguous="YES" misplaced="YES" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Nag-g2-dcP">
-                                                <rect key="frame" x="238" y="0.0" width="38" height="52"/>
+                                            <stackView opaque="NO" contentMode="right" ambiguous="YES" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Nag-g2-dcP">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="52"/>
                                             </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="Nag-g2-dcP" firstAttribute="top" secondItem="Bi0-hS-ttL" secondAttribute="top" id="HBH-M3-Xd3"/>
                                             <constraint firstItem="Nag-g2-dcP" firstAttribute="height" secondItem="Bi0-hS-ttL" secondAttribute="height" id="iBZ-KW-M1d"/>
                                             <constraint firstAttribute="bottom" secondItem="Nag-g2-dcP" secondAttribute="bottom" id="jeh-3x-Jhs"/>
-                                            <constraint firstItem="Nag-g2-dcP" firstAttribute="leading" secondItem="Bi0-hS-ttL" secondAttribute="leading" constant="238" placeholder="YES" id="moQ-PB-bwJ"/>
+                                            <constraint firstItem="Nag-g2-dcP" firstAttribute="leading" secondItem="Bi0-hS-ttL" secondAttribute="leading" id="moQ-PB-bwJ"/>
                                             <constraint firstAttribute="trailing" secondItem="Nag-g2-dcP" secondAttribute="trailing" id="ubT-Nf-C8r"/>
                                         </constraints>
                                     </scrollView>
@@ -103,7 +103,7 @@
                                     <constraint firstAttribute="height" constant="30" id="iLy-zx-RnT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="go"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="go"/>
                             </textField>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iov-bV-DEq">
                                 <rect key="frame" x="0.0" y="30" width="320" height="538"/>

@@ -32,12 +32,24 @@ class MainViewController: UIViewController {
       footerScrollView.setContentOffset(CGPointMake(footerScrollView.contentSize.width, 44), animated: false)
   }
   
-  func removeCurrentWebView() {
-    if let vc = childViewControllers.first {
-      vc.view.removeFromSuperview()
-      vc.willMoveToParentViewController(nil)
-      vc.removeFromParentViewController()
+  func button(forVC vc: WebViewController) -> UIButton? {
+    if let index = viewControllers.indexOf(vc),
+      button = footerStackView.viewWithTag(index + 1000) as? UIButton {
+      return button
     }
+    return nil
+  }
+  
+  func removeCurrentWebView() {
+    guard let vc = childViewControllers.first as? WebViewController else {
+      return
+    }
+    
+    vc.view.removeFromSuperview()
+    vc.willMoveToParentViewController(nil)
+    vc.removeFromParentViewController()
+    
+    button(forVC: vc)?.layer.borderColor = UIColor.clearColor().CGColor
   }
   
   func addNewTab() {
@@ -51,6 +63,10 @@ class MainViewController: UIViewController {
     addChildViewController(webVC)
     contentView.addSubview(webVC.view)
     webVC.didMoveToParentViewController(self)
+    
+    if let button = button(forVC: webVC) {
+      button.layer.borderColor = button.tintColor.CGColor
+    }
   }
   
   func createAndUpdateNewWebView() {
@@ -71,7 +87,7 @@ class MainViewController: UIViewController {
 //    button.backgroundColor = UIColor.grayColor()
 //    button.layer.cornerRadius = 22
 //    button.layer.masksToBounds = true
-    button.addTarget(self, action: #selector(createAndUpdateNewWebView), forControlEvents: .TouchUpInside)
+    button.addTarget(self, action: #selector(addNewTab), forControlEvents: .TouchUpInside)
     
     footerNewTabView.addSubview(button)
   }
@@ -83,14 +99,23 @@ class MainViewController: UIViewController {
       return
     }
     
-    button.tag = index
+    button.tag = index + 1000
     button.setTitle("\(index)", forState: .Normal)
+    button.layer.cornerRadius = button.bounds.height/2.0
+    button.layer.masksToBounds = true
+    button.layer.borderWidth = 1
+    button.layer.borderColor = button.tintColor.CGColor
     footerStackView.addArrangedSubview(button)
+    
+    let x = footerScrollView.contentSize.width - footerScrollView.bounds.width
+    if x > 0 {
+      footerScrollView.setContentOffset(CGPointMake(x, 0), animated: true)
+    }
   }
   
   func updateCurrentWebView(button: UIButton) {
     removeCurrentWebView()
-    let index = button.tag
+    let index = button.tag - 1000
     let webVC = viewControllers[index]
     updateWebView(webVC)
   }
