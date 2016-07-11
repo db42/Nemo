@@ -93,11 +93,20 @@ class MainViewController: UIViewController {
   }
   
   func addToFooter(webVC: WebViewController) {
-    let button = UIButton(type: .System)
-    button.addTarget(self, action: #selector(updateCurrentWebView(_:)), forControlEvents: .TouchUpInside)
     guard let index = viewControllers.indexOf(webVC) else {
       return
     }
+    
+    let button = UIButton(type: .System)
+    let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(updateCurrentWebView(_:)))
+    singleTapGesture.numberOfTapsRequired = 1
+    
+    let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(reloadPage(_:)))
+    doubleTapGesture.numberOfTapsRequired = 2
+    
+    singleTapGesture.requireGestureRecognizerToFail(doubleTapGesture)
+    button.addGestureRecognizer(singleTapGesture)
+    button.addGestureRecognizer(doubleTapGesture)
     
     button.tag = index + 1000
     button.setTitle("\(index)", forState: .Normal)
@@ -113,7 +122,19 @@ class MainViewController: UIViewController {
     }
   }
   
-  func updateCurrentWebView(button: UIButton) {
+  func reloadPage(gesture: UIGestureRecognizer) {
+    guard let button = gesture.view else {
+      return
+    }
+    let index = button.tag - 1000
+    let webVC = viewControllers[index]
+    webVC.reloadPage()
+  }
+  
+  func updateCurrentWebView(gesture: UIGestureRecognizer) {
+    guard let button = gesture.view else {
+      return
+    }
     removeCurrentWebView()
     let index = button.tag - 1000
     let webVC = viewControllers[index]

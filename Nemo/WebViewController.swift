@@ -26,13 +26,20 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     }
   
   func textFieldShouldReturn(textField: UITextField) -> Bool {
-    guard let text = textField.text,
-      url = NSURL(string: text) else {
+    guard let text = textField.text else {
       return true
     }
     
-    webView.loadRequest(NSURLRequest(URL: url))
+    let str = text.hasPrefix("http") ? text : "http://\(text)"
+    
+    if let url = NSURL(string: str) {
+      webView.loadRequest(NSURLRequest(URL: url))
+    }
     return true
+  }
+  
+  func reloadPage() {
+    webView.reload()
   }
     
 
