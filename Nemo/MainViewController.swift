@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 
   @IBOutlet weak var contentView: UIView!
   @IBOutlet weak var footerView: UIView!
@@ -16,13 +16,14 @@ class MainViewController: UIViewController {
   @IBOutlet weak var footerNewTabView: UIView!
   @IBOutlet weak var footerStackView: UIStackView!
   
-  static var tabCount = 0
+  var originalFrame: CGRect = CGRectZero
   var viewControllers: [WebViewController] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     createAndUpdateNewWebView()
+    
     footerView.backgroundColor = UIColor(white: 0.2, alpha: 0.1)
     addNewTabButton()
   }
@@ -32,15 +33,16 @@ class MainViewController: UIViewController {
       footerScrollView.setContentOffset(CGPointMake(footerScrollView.contentSize.width, 44), animated: false)
   }
   
-  func button(forVC vc: WebViewController) -> UIButton? {
-    if let index = viewControllers.indexOf(vc),
-      button = footerStackView.viewWithTag(index + 1000) as? UIButton {
-      return button
-    }
-    return nil
+  func button(forVC vc: WebViewController) -> TabButton? {
+    return footerStackView.subviews.filter { (view) -> Bool in
+      if let button = view as? TabButton {
+        return button.webVC == vc
+      }
+      return false
+    }.first as? TabButton
   }
   
-  func removeCurrentWebView() {
+  func hideCurrentWebView() {
     guard let vc = childViewControllers.first as? WebViewController else {
       return
     }
@@ -53,8 +55,27 @@ class MainViewController: UIViewController {
   }
   
   func addNewTab() {
-    removeCurrentWebView()
+    hideCurrentWebView()
     createAndUpdateNewWebView()
+  }
+  
+  func removeWebView(webVC: WebViewController, button: TabButton) {
+    guard let index = viewControllers.indexOf(webVC) else {
+      return
+    }
+    footerStackView.removeArrangedSubview(button)
+    if childViewControllers.first == webVC {
+      hideCurrentWebView()
+      var newVC: WebViewController
+      if viewControllers.count == 1 {
+        newVC = createNewWebView()
+      } else {
+        let newTabIndex = index > 0 ? index - 1 : viewControllers.count - 1
+        newVC = viewControllers[newTabIndex]
+      }
+      updateWebView(newVC)
+    }
+    viewControllers.removeAtIndex(index)
   }
   
   func updateWebView(webVC: WebViewController) {
@@ -70,11 +91,16 @@ class MainViewController: UIViewController {
   }
   
   func createAndUpdateNewWebView() {
+    let webVC = createNewWebView()
+    updateWebView(webVC)
+  }
+  
+  func createNewWebView() -> WebViewController {
     let sb = UIStoryboard(name: "Main", bundle: nil)
     let webVC = sb.instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
     viewControllers.append(webVC)
-    updateWebView(webVC)
     addToFooter(webVC)
+    return webVC
   }
   
   func addNewTabButton() {
@@ -97,18 +123,22 @@ class MainViewController: UIViewController {
       return
     }
     
-    let button = UIButton(type: .System)
+    let button = TabButton(type: .System)
     let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(updateCurrentWebView(_:)))
     singleTapGesture.numberOfTapsRequired = 1
     
     let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(reloadPage(_:)))
     doubleTapGesture.numberOfTapsRequired = 2
     
+    let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+    panGesture.delegate = self
+    button.addGestureRecognizer(panGesture)
+    
     singleTapGesture.requireGestureRecognizerToFail(doubleTapGesture)
     button.addGestureRecognizer(singleTapGesture)
     button.addGestureRecognizer(doubleTapGesture)
     
-    button.tag = index + 1000
+    button.webVC = webVC
     button.setTitle("\(index)", forState: .Normal)
     button.layer.cornerRadius = button.bounds.height/2.0
     button.layer.masksToBounds = true
@@ -122,23 +152,52 @@ class MainViewController: UIViewController {
     }
   }
   
-  func reloadPage(gesture: UIGestureRecognizer) {
-    guard let button = gesture.view else {
+  func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    guard let pan = gestureRecognizer as? UIPanGestureRecognizer else {
+      return false
+    }
+    
+    let vel = pan.velocityInView(view)
+    return fabs(vel.y) > fabs(vel.x)
+  }
+  
+  func handlePanGesture(gesture: UIPanGestureRecognizer) {
+    guard let button = gesture.view as? TabButton,
+    webVC = button.webVC else {
       return
     }
-    let index = button.tag - 1000
-    let webVC = viewControllers[index]
-    webVC.reloadPage()
+    switch gesture.state {
+    case .Began:
+      originalFrame = button.frame
+    case .Changed:
+      let point = gesture.translationInView(view)
+      let frame = button.frame.offsetBy(dx: point.x, dy: point.y)
+      button.frame = frame
+      gesture.setTranslation(CGPointZero, inView: view)
+    case .Ended:
+      if button.frame.maxY < 0 {
+        removeWebView(webVC, button: button)
+      } else {
+        button.frame = originalFrame
+      }
+    default:
+      break
+    }
+  }
+  
+  func reloadPage(gesture: UIGestureRecognizer) {
+    guard let button = gesture.view as? TabButton else {
+      return
+    }
+    button.webVC?.reloadPage()
   }
   
   func updateCurrentWebView(gesture: UIGestureRecognizer) {
-    guard let button = gesture.view else {
+    guard let button = gesture.view as? TabButton else {
       return
     }
-    removeCurrentWebView()
-    let index = button.tag - 1000
-    let webVC = viewControllers[index]
-    updateWebView(webVC)
+    hideCurrentWebView()
+    updateWebView(button.webVC!)
   }
   
   func updateFooter(webVC: WebViewController) {
