@@ -60,6 +60,10 @@
                                     <constraint firstItem="Bi0-hS-ttL" firstAttribute="height" secondItem="qdz-Yq-yUU" secondAttribute="height" id="vse-Ot-rz0"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJB-0l-dgm" userLabel="Undo close tab">
+                                <rect key="frame" x="266" y="390" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -68,8 +72,10 @@
                             <constraint firstAttribute="trailing" secondItem="qdz-Yq-yUU" secondAttribute="trailing" id="FgF-aS-uDv"/>
                             <constraint firstItem="4pe-oV-onh" firstAttribute="top" secondItem="HYW-Yj-lRu" secondAttribute="bottom" id="NM1-8R-nVm"/>
                             <constraint firstAttribute="trailing" secondItem="4pe-oV-onh" secondAttribute="trailing" id="OXA-xD-O86"/>
+                            <constraint firstAttribute="trailing" secondItem="ZJB-0l-dgm" secondAttribute="trailing" constant="8" id="WpC-1q-kbd"/>
                             <constraint firstItem="cYT-Fb-gMq" firstAttribute="top" secondItem="qdz-Yq-yUU" secondAttribute="bottom" id="eid-gL-vdt"/>
                             <constraint firstItem="qdz-Yq-yUU" firstAttribute="leading" secondItem="aih-3l-MrQ" secondAttribute="leading" id="hUt-5R-AaC"/>
+                            <constraint firstItem="qdz-Yq-yUU" firstAttribute="top" secondItem="ZJB-0l-dgm" secondAttribute="bottom" constant="8" id="u9l-J0-Yna"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -79,6 +85,7 @@
                         <outlet property="footerScrollView" destination="Bi0-hS-ttL" id="x6g-Fd-ZNQ"/>
                         <outlet property="footerStackView" destination="Nag-g2-dcP" id="kq9-yx-WHt"/>
                         <outlet property="footerView" destination="qdz-Yq-yUU" id="kiv-pR-RGM"/>
+                        <outlet property="undoButton" destination="ZJB-0l-dgm" id="E8u-vn-wTA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9vj-zA-fja" userLabel="First Responder" sceneMemberID="firstResponder"/>
