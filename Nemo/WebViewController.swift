@@ -12,6 +12,7 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
 
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var webView: UIWebView!
+  weak var delegate: MainVCWebDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,8 +45,29 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
   func reloadPage() {
     webView.reload()
   }
-    
+  
 
+  func webViewDidFinishLoad(webView: UIWebView) {
+    let html = webView.stringByEvaluatingJavaScriptFromString("document.documentElement.outerHTML")
+    if let favicon = "".favIconUrlStringFromHtmlString(html) {
+      print(" fav: \(favicon)")
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      guard let host = webView.request?.URL?.host else {
+        return
+      }
+      let urlString = "http://\(host)/favicon.ico"
+      let ur = NSURL(string: urlString)!
+      if let data = NSData(contentsOfURL: ur) {
+        let image = UIImage(data: data)
+        print(ur)
+        self.delegate?.webVC(self, faviconDidLoad: image!)
+      }
+    }
+    
+    
+  }
     /*
     // MARK: - Navigation
 

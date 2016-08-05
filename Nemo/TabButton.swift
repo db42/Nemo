@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TabButton: UIButton {
+class TabButton: UIView {
 
     /*
     // Only override drawRect: if you perform custom drawing.

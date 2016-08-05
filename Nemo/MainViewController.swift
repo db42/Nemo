@@ -8,7 +8,11 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UIGestureRecognizerDelegate {
+protocol MainVCWebDelegate: class {
+  func webVC(webVC: WebViewController, faviconDidLoad image: UIImage)
+}
+
+class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCWebDelegate {
 
   typealias Tab = (webVC: WebViewController, button: TabButton, index: Int)
   @IBOutlet weak var contentView: UIView!
@@ -124,6 +128,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
   func createNewWebView() -> WebViewController {
     let sb = UIStoryboard(name: "Main", bundle: nil)
     let webVC = sb.instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+    webVC.delegate = self
     return webVC
   }
   
@@ -151,11 +156,14 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
   }
   
   func createTabButton(webVC: WebViewController) -> TabButton? {
-    guard let index = viewControllers.indexOf(webVC) else {
-      return nil
-    }
+//    guard let index = viewControllers.indexOf(webVC) else {
+//      return nil
+//    }
     
-    let button = TabButton(type: .System)
+    let tabView = TabButton(frame: CGRectMake(0,0,44,44))
+    tabView.heightAnchor.constraintEqualToConstant(44.0).active = true
+    tabView.widthAnchor.constraintEqualToConstant(44.0).active = true
+    let image = UIImageView(frame: tabView.bounds.insetBy(dx: 4, dy: 4))
     let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(updateCurrentWebView(_:)))
     singleTapGesture.numberOfTapsRequired = 1
     
@@ -164,22 +172,23 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
     panGesture.delegate = self
-    button.addGestureRecognizer(panGesture)
+    tabView.addGestureRecognizer(panGesture)
     
 //    singleTapGesture.requireGestureRecognizerToFail(doubleTapGesture)
-    button.addGestureRecognizer(singleTapGesture)
-    button.addGestureRecognizer(doubleTapGesture)
+    tabView.addGestureRecognizer(singleTapGesture)
+    tabView.addGestureRecognizer(doubleTapGesture)
     
-    button.webVC = webVC
-    button.setTitle("\(index)", forState: .Normal)
-    button.layer.cornerRadius = button.bounds.height/2.0
-    button.layer.masksToBounds = true
-    button.layer.borderWidth = 1
-    button.layer.borderColor = button.tintColor.CGColor
-    return button
+    image.image = UIImage(named: "favicon")
+    tabView.layer.cornerRadius = 2.0
+    tabView.layer.masksToBounds = true
+    tabView.layer.borderWidth = 1
+    tabView.backgroundColor = UIColor.whiteColor()
+    tabView.webVC = webVC
+    tabView.addSubview(image)
+    return tabView
   }
   
-  func addTabButton(button: TabButton, index: Int? = nil) {
+  func addTabButton(button: UIView, index: Int? = nil) {
     if let index = index {
       footerStackView.insertArrangedSubview(button, atIndex: index)
       return
@@ -248,7 +257,19 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
   
   func updateFooter(webVC: WebViewController) {
   }
-
+  
+  func webVC(webVC: WebViewController, faviconDidLoad image: UIImage) {
+    guard let index = viewControllers.indexOf(webVC) else {
+      return
+    }
+    
+    dispatch_async(dispatch_get_main_queue()) {
+      if let tabView = self.button(forVC: webVC),
+      imageView = tabView.subviews.first as? UIImageView {
+       imageView.image = image
+      }
+    }
+  }
 
 }
 
