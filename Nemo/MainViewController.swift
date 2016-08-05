@@ -61,7 +61,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     vc.willMoveToParentViewController(nil)
     vc.removeFromParentViewController()
     
-    button(forVC: vc)?.layer.borderColor = UIColor.clearColor().CGColor
+    button(forVC: vc)?.layer.borderColor = UIColor.blackColor().CGColor
   }
   
   func addNewTab() {
