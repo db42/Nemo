@@ -61,7 +61,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     vc.willMoveToParentViewController(nil)
     vc.removeFromParentViewController()
     
-    button(forVC: vc)?.layer.borderColor = UIColor.blackColor().CGColor
+    button(forVC: vc)?.layer.borderColor = UIColor.clearColor().CGColor
   }
   
   func addNewTab() {
@@ -87,6 +87,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     undoButton.hidden = false
     NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(hideUndoButton), userInfo: nil, repeats: false)
     footerStackView.removeArrangedSubview(button)
+    button.removeFromSuperview()
     if childViewControllers.first == webVC {
       hideCurrentWebView()
       var newVC: WebViewController
@@ -182,7 +183,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     tabView.layer.cornerRadius = 2.0
     tabView.layer.masksToBounds = true
     tabView.layer.borderWidth = 1
-    tabView.backgroundColor = UIColor.whiteColor()
+//    tabView.backgroundColor = UIColor.whiteColor()
     tabView.webVC = webVC
     tabView.addSubview(image)
     return tabView

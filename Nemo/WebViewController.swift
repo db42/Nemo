@@ -26,10 +26,24 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
         // Dispose of any resources that can be recreated.
     }
   
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    if let text = textField.text where text != "" {
+      return
+    }
+    
+    textField.becomeFirstResponder()
+//    textField.text = "https://www.google.com"
+//    webView.loadRequest(NSURLRequest(URL: NSURL(string: "https://www.google.com")!))
+  }
+  
   func textFieldShouldReturn(textField: UITextField) -> Bool {
     guard let text = textField.text else {
       return true
     }
+    
+    textField.resignFirstResponder()
     
     let str = text.hasPrefix("http") ? text : "http://\(text)"
     
