@@ -152,7 +152,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     let tabView = TabButton(frame: CGRectMake(0,0,44,44))
     tabView.heightAnchor.constraintEqualToConstant(44.0).active = true
     tabView.widthAnchor.constraintEqualToConstant(44.0).active = true
-    let image = UIImageView(frame: tabView.bounds.insetBy(dx: 4, dy: 4))
+    let image = UIImageView(frame: tabView.bounds.insetBy(dx: 6, dy: 4))
     let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(updateCurrentWebView(_:)))
     singleTapGesture.numberOfTapsRequired = 1
     
