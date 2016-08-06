@@ -10,6 +10,7 @@ import UIKit
 
 protocol MainVCWebDelegate: class {
   func webVC(webVC: WebViewController, faviconDidLoad image: UIImage)
+  func webVC(webVC: WebViewController, shouldOpenNewTabForURL url: NSURL)
 }
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCWebDelegate {
@@ -68,7 +69,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
   }
   
   @IBAction func addNewTab(sender: AnyObject) {
-    hideCurrentWebView()
     createAndUpdateNewWebView()
   }
   
@@ -123,10 +123,12 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
   }
   
   func createAndUpdateNewWebView() {
+    hideCurrentWebView()
     let webVC = createNewWebView()
     addWebView(webVC)
-    createAndAddTabButtonToFooter(webVC)
     updateWebView(webVC)
+    
+    createAndAddTabButtonToFooter(webVC)
   }
   
   func createNewWebView() -> WebViewController {
@@ -267,6 +269,17 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
        imageView.image = image
       }
     }
+  }
+  
+  func webVC(webVC: WebViewController, shouldOpenNewTabForURL url: NSURL) {
+    let webVC = createNewWebView()
+    webVC.url = url
+    addWebView(webVC)
+    
+    updateWebView(webVC)
+    hideCurrentWebView()
+    
+    createAndAddTabButtonToFooter(webVC)
   }
 
 }

@@ -13,18 +13,19 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var webView: UIWebView!
   weak var delegate: MainVCWebDelegate?
-    override func viewDidLoad() {
-        super.viewDidLoad()
+  var url: NSURL?
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-      webView.delegate = self
-      textField.delegate = self
-    }
+    webView.delegate = self
+    textField.delegate = self
+  }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
@@ -33,9 +34,12 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
       return
     }
     
-    textField.becomeFirstResponder()
-//    textField.text = "https://www.google.com"
-//    webView.loadRequest(NSURLRequest(URL: NSURL(string: "https://www.google.com")!))
+    if let url = self.url {
+      webView.loadRequest(NSURLRequest(URL: url))
+      textField.text = url.absoluteString
+    } else {
+      textField.becomeFirstResponder()
+    }
   }
   
   func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -60,12 +64,21 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     webView.reload()
   }
   
+  func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    if let string:NSString = request.URL?.absoluteString where string.hasPrefix("newtab:") {
+      if let url = NSURL(string: string.substringFromIndex(7)) {
+        self.delegate?.webVC(self, shouldOpenNewTabForURL: url)
+        return false
+      }
+    }
+    return true
+  }
+  
 
   func webViewDidFinishLoad(webView: UIWebView) {
-    let html = webView.stringByEvaluatingJavaScriptFromString("document.documentElement.outerHTML")
-    if let favicon = "".favIconUrlStringFromHtmlString(html) {
-      print(" fav: \(favicon)")
-    }
+    // JS Injection hack to solve the target="_blank" issue and open a real browser in such case.
+    let JSInjection = "javascript: var allLinks = document.getElementsByTagName('a'); if (allLinks) {var i;for (i=0; i<allLinks.length; i++) {var link = allLinks[i];var target = link.getAttribute('target'); if (target && target == '_blank') {link.setAttribute('target','_self');link.href = 'newtab:'+link.href;}}}"
+    webView.stringByEvaluatingJavaScriptFromString(JSInjection)
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
       guard let host = webView.request?.URL?.host else {
@@ -79,17 +92,5 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
           self.delegate?.webVC(self, faviconDidLoad: image)
       }
     }
-    
-    
   }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
