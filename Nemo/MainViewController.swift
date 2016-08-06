@@ -34,8 +34,11 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     undoButton.setTitle("Undo", forState: .Normal)
     undoButton.hidden = true
     undoButton.addTarget(self, action: #selector(undoRemoveWebView), forControlEvents: .TouchUpInside)
-    footerView.backgroundColor = UIColor(white: 0.2, alpha: 0.1)
-    addNewTabButton()
+//    UIColor colorWithRed:(247.0f/255.0f) green:(247.0f/255.0f) blue:(247.0f/255.0f) alpha:1
+    footerView.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
+//    footernew.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
+    footerNewTabView.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
+//    footerScrollView.clipsToBounds = true
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -64,7 +67,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     button(forVC: vc)?.layer.borderColor = UIColor.clearColor().CGColor
   }
   
-  func addNewTab() {
+  @IBAction func addNewTab(sender: AnyObject) {
     hideCurrentWebView()
     createAndUpdateNewWebView()
   }
@@ -141,21 +144,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     }
   }
   
-  func addNewTabButton() {
-//    let x = footerView.bounds.maxX - 50
-//    let y = footerView.bounds.midY - 22
-//    let frame = CGRectMake(x, y, 44, 44)
-    let button = UIButton(type: .ContactAdd)
-//    let frame = footerNewTabView.bounds
-//    let button = UIButton(frame: frame)
-//    button.backgroundColor = UIColor.grayColor()
-//    button.layer.cornerRadius = 22
-//    button.layer.masksToBounds = true
-    button.addTarget(self, action: #selector(addNewTab), forControlEvents: .TouchUpInside)
-    
-    footerNewTabView.addSubview(button)
-  }
-  
   func createTabButton(webVC: WebViewController) -> TabButton? {
 //    guard let index = viewControllers.indexOf(webVC) else {
 //      return nil
@@ -196,11 +184,20 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     }
     
     footerStackView.addArrangedSubview(button)
-    
-    let x = footerScrollView.contentSize.width - footerScrollView.bounds.width
+//    footerScrollView.contentSize = CGSize(width: footerStackView.frame.width, height: footerStackView.frame.height)
+    let x = footerScrollView.contentSize.width + button.bounds.width - footerScrollView.bounds.width
     if x > 0 {
       footerScrollView.setContentOffset(CGPointMake(x, 0), animated: true)
     }
+    
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+  }
+  
+  override func viewWillLayoutSubviews() {
+    super.viewWillLayoutSubviews()
   }
   
   func createAndAddTabButtonToFooter(webVC: WebViewController) {

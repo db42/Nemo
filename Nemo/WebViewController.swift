@@ -73,10 +73,10 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
       }
       let urlString = "http://\(host)/favicon.ico"
       let ur = NSURL(string: urlString)!
-      if let data = NSData(contentsOfURL: ur) {
-        let image = UIImage(data: data)
-        print(ur)
-        self.delegate?.webVC(self, faviconDidLoad: image!)
+      if let data = NSData(contentsOfURL: ur),
+        image = UIImage(data: data) {
+          print(ur)
+          self.delegate?.webVC(self, faviconDidLoad: image)
       }
     }
     

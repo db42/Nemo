@@ -41,9 +41,19 @@
                                     </scrollView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SjQ-48-AVr">
                                         <rect key="frame" x="276" y="0.0" width="44" height="52"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2W-qs-xKN">
+                                                <rect key="frame" x="11" y="15" width="22" height="22"/>
+                                                <connections>
+                                                    <action selector="addNewTab:" destination="mHo-PL-zxF" eventType="touchUpInside" id="TUC-0H-jiO"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="w2W-qs-xKN" firstAttribute="centerX" secondItem="SjQ-48-AVr" secondAttribute="centerX" id="6FA-uv-R7B"/>
                                             <constraint firstAttribute="width" constant="44" id="Ohl-Mv-e4Z"/>
+                                            <constraint firstItem="w2W-qs-xKN" firstAttribute="centerY" secondItem="SjQ-48-AVr" secondAttribute="centerY" id="RBi-pY-whk"/>
                                         </constraints>
                                     </view>
                                 </subviews>
