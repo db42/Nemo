@@ -8,10 +8,13 @@
 
 import UIKit
 
-class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegate {
+class NemoWebView: UIWebView {
+}
+
+class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate {
 
   @IBOutlet weak var textField: UITextField!
-  @IBOutlet weak var webView: UIWebView!
+  @IBOutlet weak var webView: NemoWebView!
   weak var delegate: MainVCWebDelegate?
   var url: NSURL?
   
@@ -20,8 +23,18 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
 
     webView.delegate = self
     textField.delegate = self
+    
+    let hideKeyboardGesture = UIGestureRecognizer()
+    hideKeyboardGesture.delegate = self
+//    hideKeyboardGesture.cancelsTouchesInView = false
+    webView.addGestureRecognizer(hideKeyboardGesture)
   }
-
+  
+  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    textField.resignFirstResponder()
+    return false
+  }
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -39,6 +52,12 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
       textField.text = url.absoluteString
     } else {
       textField.becomeFirstResponder()
+    }
+  }
+  
+  func textFieldDidBeginEditing(textField: UITextField) {
+    if textField.text != "" {
+      textField.selectAll(nil)
     }
   }
   
