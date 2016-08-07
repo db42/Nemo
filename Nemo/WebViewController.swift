@@ -51,7 +51,7 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     
     let str = text.hasPrefix("http") ? text : "http://\(text)"
     
-    if let url = NSURL(string: str) {
+    if let url = NSURL(string: str) where url.absoluteString.rangeOfString(".") != nil {
       webView.loadRequest(NSURLRequest(URL: url))
     } else {
       let txt = "https://www.google.com/search?q=\(text)".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())

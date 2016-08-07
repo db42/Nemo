@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//ther  ViewController.swift
 //  Nemo
 //
 //  Created by Dushyant Bansal on 02/07/16.
@@ -22,14 +22,19 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
   @IBOutlet weak var footerNewTabView: UIView!
   @IBOutlet weak var footerStackView: UIStackView!
   
+  @IBOutlet weak var leftButton: UIButton!
+  @IBOutlet weak var rightButton: UIButton!
   var originalFrame: CGRect = CGRectZero
   var viewControllers: [WebViewController] = []
   var lastRemovedTab: Tab? = nil
   
   @IBOutlet weak var undoButton: UIButton!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    leftButton.tintColor = undoButton.tintColor
+    rightButton.tintColor = undoButton.tintColor
     createAndUpdateNewWebView()
     
     undoButton.setTitle("Undo", forState: .Normal)
@@ -56,6 +61,10 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     }.first as? TabButton
   }
   
+  func selectedWebVC() -> WebViewController {
+    return childViewControllers.first as! WebViewController
+  }
+  
   func hideCurrentWebView() {
     guard let vc = childViewControllers.first as? WebViewController else {
       return
@@ -66,6 +75,16 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     vc.removeFromParentViewController()
     
     button(forVC: vc)?.layer.borderColor = UIColor.clearColor().CGColor
+  }
+  @IBOutlet weak var goBack: UIButton!
+  @IBOutlet weak var goForward: UIButton!
+  
+  @IBAction func goBack(sender: AnyObject) {
+    selectedWebVC().webView.goBack()
+  }
+  
+  @IBAction func goForward(sender: AnyObject) {
+    selectedWebVC().webView.goForward()
   }
   
   @IBAction func addNewTab(sender: AnyObject) {

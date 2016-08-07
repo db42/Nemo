@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="428" width="320" height="52"/>
                                 <subviews>
                                     <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bi0-hS-ttL">
-                                        <rect key="frame" x="0.0" y="0.0" width="276" height="52"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="52"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="right" ambiguous="YES" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Nag-g2-dcP">
                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="52"/>
@@ -40,20 +40,46 @@
                                         </constraints>
                                     </scrollView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SjQ-48-AVr">
-                                        <rect key="frame" x="276" y="0.0" width="44" height="52"/>
+                                        <rect key="frame" x="200" y="0.0" width="120" height="52"/>
                                         <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mid-4J-o3c">
+                                                <rect key="frame" x="8" y="15" width="22" height="22"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="22" id="Yue-rR-odG"/>
+                                                    <constraint firstAttribute="height" constant="22" id="sdk-No-fhU"/>
+                                                </constraints>
+                                                <state key="normal" image="swipe-left"/>
+                                                <connections>
+                                                    <action selector="goBack:" destination="mHo-PL-zxF" eventType="touchUpInside" id="hzJ-th-Ute"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2W-qs-xKN">
-                                                <rect key="frame" x="11" y="15" width="22" height="22"/>
+                                                <rect key="frame" x="90" y="15" width="22" height="22"/>
                                                 <connections>
                                                     <action selector="addNewTab:" destination="mHo-PL-zxF" eventType="touchUpInside" id="TUC-0H-jiO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYn-Gs-Q1C">
+                                                <rect key="frame" x="49" y="15" width="22" height="22"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="22" id="8J7-Nm-u0U"/>
+                                                    <constraint firstAttribute="height" constant="22" id="LnS-6o-YXI"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="swipe-right"/>
+                                                <connections>
+                                                    <action selector="goForward:" destination="mHo-PL-zxF" eventType="touchUpInside" id="XEx-MB-gCh"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="w2W-qs-xKN" firstAttribute="centerX" secondItem="SjQ-48-AVr" secondAttribute="centerX" id="6FA-uv-R7B"/>
-                                            <constraint firstAttribute="width" constant="44" id="Ohl-Mv-e4Z"/>
+                                            <constraint firstItem="jYn-Gs-Q1C" firstAttribute="centerX" secondItem="SjQ-48-AVr" secondAttribute="centerX" id="O3k-fC-M9e"/>
+                                            <constraint firstAttribute="width" constant="120" id="Ohl-Mv-e4Z"/>
                                             <constraint firstItem="w2W-qs-xKN" firstAttribute="centerY" secondItem="SjQ-48-AVr" secondAttribute="centerY" id="RBi-pY-whk"/>
+                                            <constraint firstAttribute="trailing" secondItem="w2W-qs-xKN" secondAttribute="trailing" constant="8" id="Zay-ZX-1xZ"/>
+                                            <constraint firstItem="mid-4J-o3c" firstAttribute="centerY" secondItem="SjQ-48-AVr" secondAttribute="centerY" id="cvn-VT-D4l"/>
+                                            <constraint firstItem="mid-4J-o3c" firstAttribute="leading" secondItem="SjQ-48-AVr" secondAttribute="leading" constant="8" id="nlv-DT-Lnu"/>
+                                            <constraint firstItem="jYn-Gs-Q1C" firstAttribute="centerY" secondItem="SjQ-48-AVr" secondAttribute="centerY" id="xzM-se-0HU"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -95,6 +121,8 @@
                         <outlet property="footerScrollView" destination="Bi0-hS-ttL" id="x6g-Fd-ZNQ"/>
                         <outlet property="footerStackView" destination="Nag-g2-dcP" id="kq9-yx-WHt"/>
                         <outlet property="footerView" destination="qdz-Yq-yUU" id="kiv-pR-RGM"/>
+                        <outlet property="leftButton" destination="mid-4J-o3c" id="9Vz-iY-A9j"/>
+                        <outlet property="rightButton" destination="jYn-Gs-Q1C" id="Iho-Ps-jgT"/>
                         <outlet property="undoButton" destination="ZJB-0l-dgm" id="E8u-vn-wTA"/>
                     </connections>
                 </viewController>
@@ -149,4 +177,8 @@
             <point key="canvasLocation" x="511" y="210"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="swipe-left" width="42" height="42"/>
+        <image name="swipe-right" width="42" height="42"/>
+    </resources>
 </document>
