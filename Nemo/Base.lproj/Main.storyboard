@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mHo-PL-zxF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mHo-PL-zxF">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -142,32 +142,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sip-Lb-KVj">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0l-dX-WyW" userLabel="Search View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sip-Lb-KVj">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="go"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="iLy-zx-RnT"/>
+                                    <constraint firstAttribute="bottom" secondItem="sip-Lb-KVj" secondAttribute="bottom" id="9Aa-fc-5Hq"/>
+                                    <constraint firstItem="sip-Lb-KVj" firstAttribute="leading" secondItem="t0l-dX-WyW" secondAttribute="leading" id="9D6-h8-JUZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="sip-Lb-KVj" secondAttribute="trailing" id="ltE-V9-zmn"/>
+                                    <constraint firstItem="sip-Lb-KVj" firstAttribute="top" secondItem="t0l-dX-WyW" secondAttribute="top" id="xq1-4r-qPm"/>
+                                    <constraint firstAttribute="height" constant="44" id="znq-pc-F3Q"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="go"/>
-                            </textField>
+                            </view>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iov-bV-DEq" customClass="NemoWebView" customModule="Nemo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="30" width="320" height="538"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Iov-bV-DEq" secondAttribute="bottom" id="CXd-8L-4Ym"/>
-                            <constraint firstItem="sip-Lb-KVj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FBE-il-bUz"/>
-                            <constraint firstItem="Iov-bV-DEq" firstAttribute="top" secondItem="sip-Lb-KVj" secondAttribute="bottom" id="Ixq-r2-QUP"/>
-                            <constraint firstItem="sip-Lb-KVj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="NHT-Sc-z9o"/>
+                            <constraint firstItem="t0l-dX-WyW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FFi-kj-tQe"/>
+                            <constraint firstItem="Iov-bV-DEq" firstAttribute="top" secondItem="t0l-dX-WyW" secondAttribute="bottom" id="OY6-Nu-KE2"/>
                             <constraint firstAttribute="trailing" secondItem="Iov-bV-DEq" secondAttribute="trailing" id="Q8Y-Ps-sOe"/>
-                            <constraint firstAttribute="trailing" secondItem="sip-Lb-KVj" secondAttribute="trailing" id="T10-BM-Mk2"/>
                             <constraint firstItem="Iov-bV-DEq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cCi-ht-g2O"/>
+                            <constraint firstItem="t0l-dX-WyW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="jMO-Fg-meX"/>
+                            <constraint firstAttribute="trailing" secondItem="t0l-dX-WyW" secondAttribute="trailing" id="phm-2a-bPD"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="searchView" destination="t0l-dX-WyW" id="MJV-AE-JOc"/>
                         <outlet property="textField" destination="sip-Lb-KVj" id="DbL-np-tHB"/>
                         <outlet property="webView" destination="Iov-bV-DEq" id="h0B-zQ-aeO"/>
                     </connections>
@@ -175,6 +186,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="511" y="210"/>
+        </scene>
+        <!--URL Search Results Controller-->
+        <scene sceneID="WZb-Yg-dTl">
+            <objects>
+                <tableViewController storyboardIdentifier="URLSearchResultsController" id="lTK-mZ-2WP" customClass="URLSearchResultsController" customModule="Nemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="yIa-W1-nHf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="et5-3H-r0g">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="et5-3H-r0g" id="TXm-Ad-3k2">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="lTK-mZ-2WP" id="yW6-Y7-ra5"/>
+                            <outlet property="delegate" destination="lTK-mZ-2WP" id="RCS-zO-xXN"/>
+                        </connections>
+                    </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5gm-dz-iqg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="893" y="210"/>
         </scene>
     </scenes>
     <resources>
