@@ -144,19 +144,8 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0l-dX-WyW" userLabel="Search View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sip-Lb-KVj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="go"/>
-                                    </textField>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="sip-Lb-KVj" secondAttribute="bottom" id="9Aa-fc-5Hq"/>
-                                    <constraint firstItem="sip-Lb-KVj" firstAttribute="leading" secondItem="t0l-dX-WyW" secondAttribute="leading" id="9D6-h8-JUZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="sip-Lb-KVj" secondAttribute="trailing" id="ltE-V9-zmn"/>
-                                    <constraint firstItem="sip-Lb-KVj" firstAttribute="top" secondItem="t0l-dX-WyW" secondAttribute="top" id="xq1-4r-qPm"/>
                                     <constraint firstAttribute="height" constant="44" id="znq-pc-F3Q"/>
                                 </constraints>
                             </view>
@@ -179,7 +168,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="searchView" destination="t0l-dX-WyW" id="MJV-AE-JOc"/>
-                        <outlet property="textField" destination="sip-Lb-KVj" id="DbL-np-tHB"/>
                         <outlet property="webView" destination="Iov-bV-DEq" id="h0B-zQ-aeO"/>
                     </connections>
                 </viewController>

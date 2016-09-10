@@ -32,11 +32,15 @@ class WebHistory {
   
   func addURL(url: NSURL) {
     var newCount = 1
-    if let count = URLs[url.absoluteString] {
+    let urlc = NSURLComponents(URL: url, resolvingAgainstBaseURL: false)!
+    urlc.query = nil
+    let sanitizedURLString = urlc.string!
+
+    if let count = URLs[sanitizedURLString] {
       newCount += count
     }
     
-    URLs.updateValue(newCount, forKey: url.absoluteString)
+    URLs.updateValue(newCount, forKey: sanitizedURLString)
     save()
   }
   

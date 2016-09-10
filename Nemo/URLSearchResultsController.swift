@@ -47,7 +47,7 @@ class URLSearchResultsController: UITableViewController, UISearchResultsUpdating
         cell = UITableViewCell(style: .Default, reuseIdentifier: "reuseIdentifier")
       }
       let url = searchResults[indexPath.row]
-      cell!.textLabel?.text = url.absoluteString
+      cell!.textLabel?.text = url.host! + url.path!
       return cell!
     }
   

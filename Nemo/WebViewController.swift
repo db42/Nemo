@@ -18,7 +18,7 @@ protocol SearchResultsDelegate: class {
 class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate, SearchResultsDelegate, UISearchControllerDelegate, UISearchBarDelegate {
 
   @IBOutlet weak var searchView: UIView!
-  @IBOutlet weak var textField: UITextField!
+//  @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var webView: NemoWebView!
   weak var delegate: MainVCWebDelegate?
   
@@ -44,9 +44,18 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     searchController.delegate = self
     searchController.searchBar.delegate = self
     
+//    searchView.layoutMargins = UIEdgeInsetsZero
     searchView.addSubview(searchController.searchBar)
+//    let views = ["searchBar": searchController.searchBar]
+//    let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[searchBar]-|", options: .AlignAllCenterX, metrics: nil, views: views)
+//    let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[searchBar]-|", options: .AlignAllCenterY, metrics: nil, views: views)
+//    searchView.addConstraints(hConstraints)
+//    searchView.addConstraints(vConstraints)
     searchController.searchBar.autoresizingMask = UIViewAutoresizing.FlexibleWidth
-    searchController.searchBar.translatesAutoresizingMaskIntoConstraints = true
+//    searchController.searchBar.translatesAutoresizingMaskIntoConstraints = true
+    
+    searchController.searchBar.returnKeyType = UIReturnKeyType.Go
+    searchController.searchBar.autocapitalizationType = UITextAutocapitalizationType.None
     searchView.bringSubviewToFront(searchController.searchBar)
   }
   
