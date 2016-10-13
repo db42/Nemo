@@ -15,7 +15,7 @@ class WebHistory {
   init() {
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true)[0]
     let url = NSURL(fileURLWithPath: paths).URLByAppendingPathComponent("data.data")
-    guard let path = url.path where NSFileManager.defaultManager().fileExistsAtPath(path) else {
+    guard let path = url!.path where NSFileManager.defaultManager().fileExistsAtPath(path) else {
       URLs = [:]
       return
     }
@@ -56,7 +56,7 @@ class WebHistory {
     
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true)[0]
     let url = NSURL(fileURLWithPath: paths).URLByAppendingPathComponent("data.data")
-    guard let path = url.path else {
+    guard let path = url!.path else {
       return
     }
     

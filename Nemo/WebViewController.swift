@@ -15,7 +15,7 @@ protocol SearchResultsDelegate: class {
   func didSelectURL(url: NSURL)
 }
 
-class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate, SearchResultsDelegate, UISearchControllerDelegate, UISearchBarDelegate {
+class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate, SearchResultsDelegate, UISearchControllerDelegate, UISearchBarDelegate, UIScrollViewDelegate {
 
   @IBOutlet weak var searchView: UIView!
 //  @IBOutlet weak var textField: UITextField!
@@ -25,10 +25,16 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
   var searchController: UISearchController!
   var url: NSURL?
   
+  func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+    return true;
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
     webView.delegate = self
+    webView.scrollView.scrollsToTop = true
+    webView.scrollView.delegate = self
 //    textField.delegate = self
     
     let hideKeyboardGesture = UIGestureRecognizer()
@@ -57,6 +63,11 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     searchController.searchBar.returnKeyType = UIReturnKeyType.Go
     searchController.searchBar.autocapitalizationType = UITextAutocapitalizationType.None
     searchView.bringSubviewToFront(searchController.searchBar)
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    searchController.searchBar.subviews[0].subviews[0].frame = searchView.bounds
   }
   
   //MARK: SearchControllerDelegate
@@ -100,6 +111,7 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     webView.reload()
   }
   
+  // MARK: - UIWebViewDelegate
   func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
     if let string:NSString = request.URL?.absoluteString where string.hasPrefix("newtab:") {
       if let url = NSURL(string: string.substringFromIndex(7)) {
@@ -112,6 +124,8 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
   
 
   func webViewDidFinishLoad(webView: UIWebView) {
+    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    
     if let url = webView.request?.URL {
       WebHistory.defaultHistory.addURL(url)
       searchController.searchBar.text = url.absoluteString
@@ -132,6 +146,10 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
           self.delegate?.webVC(self, faviconDidLoad: image)
       }
     }
+  }
+  
+  func webViewDidStartLoad(webView: UIWebView) {
+    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
   }
   
   //MARK: textField Delegate
@@ -164,7 +182,7 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     
     let str = text.hasPrefix("http") ? text : "http://\(text)"
     
-    if let url = NSURL(string: str) where url.absoluteString.rangeOfString(".") != nil {
+    if let url = NSURL(string: str) where url.absoluteString!.rangeOfString(".") != nil {
       webView.loadRequest(NSURLRequest(URL: url))
     } else {
       let txt = "https://www.google.com/search?q=\(text)".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())

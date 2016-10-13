@@ -42,6 +42,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     undoButton.addTarget(self, action: #selector(undoRemoveWebView), forControlEvents: .TouchUpInside)
     footerView.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
     footerNewTabView.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
+    footerScrollView.scrollsToTop = false
   }
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
