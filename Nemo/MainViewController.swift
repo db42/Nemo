@@ -47,6 +47,8 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     footerView.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
     footerNewTabView.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
     footerScrollView.scrollsToTop = false
+    
+    contentView.backgroundColor = UIColor.darkGrayColor()
   }
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -190,6 +192,13 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     panGesture.delegate = self
     tabView.addGestureRecognizer(panGesture)
     
+    let leftScreenEdgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleScreenEdgePanGesture(_:)))
+    leftScreenEdgePanGesture.edges = UIRectEdge.Left
+    view.addGestureRecognizer(leftScreenEdgePanGesture)
+    
+    let rightScreenEdgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleScreenEdgePanGesture(_:)))
+    rightScreenEdgePanGesture.edges = UIRectEdge.Right
+    view.addGestureRecognizer(rightScreenEdgePanGesture)
 //    singleTapGesture.requireGestureRecognizerToFail(doubleTapGesture)
     tabView.addGestureRecognizer(singleTapGesture)
     tabView.addGestureRecognizer(doubleTapGesture)
@@ -259,6 +268,30 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
         removeWebView(webVC, button: button)
       } else {
         button.frame = originalFrame
+      }
+    default:
+      break
+    }
+  }
+  
+  func handleScreenEdgePanGesture(gesture: UIScreenEdgePanGestureRecognizer) {
+    let webView = selectedWebVC().webView
+    let centerX = webView.frame.width/2
+    
+    switch gesture.state {
+    case .Began:
+      originalFrame = webView.frame
+    case .Changed:
+      let point = gesture.translationInView(view)
+      let frame = webView.frame.offsetBy(dx: point.x, dy: 0)
+      webView.frame = frame
+      gesture.setTranslation(CGPointZero, inView: view)
+    case .Ended:
+      webView.frame = originalFrame
+      if webView.frame.minX > centerX { //swipe right
+        selectedWebVC().webView.goBack()
+      } else if webView.frame.maxX < centerX { //swipe left
+        selectedWebVC().webView.goForward()
       }
     default:
       break
