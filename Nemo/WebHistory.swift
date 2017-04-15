@@ -74,11 +74,21 @@ class WebHistory {
     
   }
   
+  func cleanURL(url: String) -> String {
+    return url.componentsSeparatedByString(":").last!
+  }
+  
   func searchForText(text: String) -> [NSURL] {
     return URLs.filter { url -> Bool in
-      return (url.0.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch) != nil)
+      return (cleanURL(url.0).rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch) != nil)
     }.sort({ (url1, url2) -> Bool in
-      return url1.1 > url2.1
+      let r1 = cleanURL(url1.0).rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch)?.startIndex
+      let r2 = cleanURL(url2.0).rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch)?.startIndex
+      if (r1 == r2) {
+        return url1.1 > url2.1
+      } else {
+      return r1 < r2
+      }
     }).map({ (url) -> NSURL in
       return NSURL(string: url.0)!
     })
