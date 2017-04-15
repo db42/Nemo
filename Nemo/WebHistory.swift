@@ -71,10 +71,12 @@ class WebHistory {
         print(error)
       }
     }
-    
   }
   
   func cleanURL(url: String) -> String {
+//TODO:
+//    let url = NSURL(string: url)!
+//    return url.host! + url.path!
     return url.componentsSeparatedByString(":").last!
   }
   
