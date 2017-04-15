@@ -11,6 +11,8 @@ import UIKit
 protocol MainVCWebDelegate: class {
   func webVC(webVC: WebViewController, faviconDidLoad image: UIImage)
   func webVC(webVC: WebViewController, shouldOpenNewTabForURL url: NSURL)
+  func hideTabBarFooter()
+  func showTabBarFooter()
 }
 
 class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCWebDelegate {
@@ -24,10 +26,12 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
   
   @IBOutlet weak var leftButton: UIButton!
   @IBOutlet weak var rightButton: UIButton!
+  @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint!
   var originalFrame: CGRect = CGRectZero
   var viewControllers: [WebViewController] = []
   var lastRemovedTab: Tab? = nil
   
+  @IBOutlet weak var footerOffsetConstraint: NSLayoutConstraint!
   @IBOutlet weak var undoButton: UIButton!
   
   override func viewDidLoad() {
@@ -279,6 +283,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
   func updateFooter(webVC: WebViewController) {
   }
   
+  //MARK: - WebVCDelegate
   func webVC(webVC: WebViewController, faviconDidLoad image: UIImage) {
     guard let index = viewControllers.indexOf(webVC) else {
       return
@@ -301,6 +306,14 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     hideCurrentWebView()
     
     createAndAddTabButtonToFooter(webVC)
+  }
+  
+  func hideTabBarFooter() {
+    footerHeightConstraint.constant = 0
+  }
+  
+  func showTabBarFooter() {
+    footerHeightConstraint.constant = 52
   }
 
 }

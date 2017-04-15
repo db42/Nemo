@@ -17,11 +17,13 @@ protocol SearchResultsDelegate: class {
 
 class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate, SearchResultsDelegate, UISearchControllerDelegate, UISearchBarDelegate, UIScrollViewDelegate {
 
+  var currentOffset: CGFloat = 0.0
   @IBOutlet weak var searchView: UIView!
 //  @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var webView: NemoWebView!
   weak var delegate: MainVCWebDelegate?
   
+  @IBOutlet weak var searchViewHeightConstraint: NSLayoutConstraint!
   var searchController: UISearchController!
   var url: NSURL?
   
@@ -187,6 +189,25 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     } else {
       let txt = "https://www.google.com/search?q=\(text)".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
       webView.loadRequest(NSURLRequest(URL: NSURL(string: txt!)!))
+    }
+  }
+  
+  //MARK: - UIScrollViewDelegate
+  
+  func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    currentOffset = scrollView.contentOffset.y
+  }
+  
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    let scrollPos = scrollView.contentOffset.y
+    if scrollPos > currentOffset {
+      UIView.animateWithDuration(0.25, animations: {
+        self.searchViewHeightConstraint.constant = 0
+        self.delegate?.hideTabBarFooter()
+      })
+    } else {
+      searchViewHeightConstraint.constant = 44
+      delegate?.showTabBarFooter()
     }
   }
   
