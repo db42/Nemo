@@ -287,12 +287,12 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
       webView.frame = frame
       gesture.setTranslation(CGPointZero, inView: view)
     case .Ended:
-      webView.frame = originalFrame
       if webView.frame.minX > centerX { //swipe right
         selectedWebVC().webView.goBack()
       } else if webView.frame.maxX < centerX { //swipe left
         selectedWebVC().webView.goForward()
       }
+      webView.frame = originalFrame
     default:
       break
     }
