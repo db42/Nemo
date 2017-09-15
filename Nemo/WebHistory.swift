@@ -7,21 +7,35 @@
 //
 
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class WebHistory {
   static var defaultHistory = WebHistory()
   var URLs: [String: Int]
   
   init() {
-    let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true)[0]
-    let url = NSURL(fileURLWithPath: paths).URLByAppendingPathComponent("data.data")
-    guard let path = url!.path where NSFileManager.defaultManager().fileExistsAtPath(path) else {
+    let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
+    let url = URL(fileURLWithPath: paths).appendingPathComponent("data.data")
+    let path = url.path
+    guard FileManager.default.fileExists(atPath: path) else {
       URLs = [:]
       return
     }
     
-    if let data = NSData(contentsOfFile: path),
-      urls = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [String: Int] {
+    if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+      let urls = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Int] {
       
       print("web history backup file loaded")
       URLs = urls!
@@ -30,9 +44,9 @@ class WebHistory {
     }
   }
   
-  func addURL(url: NSURL) {
+  func addURL(_ url: URL) {
     var newCount = 1
-    let urlc = NSURLComponents(URL: url, resolvingAgainstBaseURL: false)!
+    var urlc = URLComponents(url: url, resolvingAgainstBaseURL: false)!
     urlc.query = nil
     let sanitizedURLString = urlc.string!
 
@@ -46,26 +60,23 @@ class WebHistory {
   
   func save() {
     print(URLs)
-    let data: NSData
+    let data: Data
     do {
-      data = try NSJSONSerialization.dataWithJSONObject(self.URLs, options: .PrettyPrinted)
+      data = try JSONSerialization.data(withJSONObject: self.URLs, options: .prettyPrinted)
     } catch let error {
       print(error)
       return
     }
     
-    let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true)[0]
-    let url = NSURL(fileURLWithPath: paths).URLByAppendingPathComponent("data.data")
-    guard let path = url!.path else {
-      return
-    }
-    
-    if (!NSFileManager.defaultManager().fileExistsAtPath(path)) {
-      NSFileManager.defaultManager().createFileAtPath(path, contents: data, attributes: nil)
+    let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
+    let url = URL(fileURLWithPath: paths).appendingPathComponent("data.data")
+    let path = url.path    
+    if (!FileManager.default.fileExists(atPath: path)) {
+      FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
       print("web history backup file created")
     } else {
       do {
-        try data.writeToFile(path, options: .DataWritingFileProtectionNone)
+        try data.write(to: URL(fileURLWithPath: path), options: .noFileProtection)
         print("web history backup file updated")
       } catch let error {
         print(error)
@@ -73,26 +84,26 @@ class WebHistory {
     }
   }
   
-  func cleanURL(url: String) -> String {
+  func cleanURL(_ url: String) -> String {
 //TODO:
 //    let url = NSURL(string: url)!
 //    return url.host! + url.path!
-    return url.componentsSeparatedByString(":").last!
+    return url.components(separatedBy: ":").last!
   }
   
-  func searchForText(text: String) -> [NSURL] {
+  func searchForText(_ text: String) -> [URL] {
     return URLs.filter { url -> Bool in
-      return (cleanURL(url.0).rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch) != nil)
-    }.sort({ (url1, url2) -> Bool in
-      let r1 = cleanURL(url1.0).rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch)?.startIndex
-      let r2 = cleanURL(url2.0).rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch)?.startIndex
+      return (cleanURL(url.0).range(of: text, options: NSString.CompareOptions.caseInsensitive) != nil)
+    }.sorted(by: { (url1, url2) -> Bool in
+      let r1 = cleanURL(url1.0).range(of: text, options: NSString.CompareOptions.caseInsensitive)?.lowerBound
+      let r2 = cleanURL(url2.0).range(of: text, options: NSString.CompareOptions.caseInsensitive)?.lowerBound
       if (r1 == r2) {
         return url1.1 > url2.1
       } else {
       return r1 < r2
       }
-    }).map({ (url) -> NSURL in
-      return NSURL(string: url.0)!
+    }).map({ (url) -> URL in
+      return URL(string: url.0)!
     })
   }
 }

@@ -12,7 +12,7 @@ class NemoWebView: UIWebView {
 }
 
 protocol SearchResultsDelegate: class {
-  func didSelectURL(url: NSURL)
+  func didSelectURL(_ url: URL)
 }
 
 class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate, SearchResultsDelegate, UISearchControllerDelegate, UISearchBarDelegate, UIScrollViewDelegate {
@@ -25,10 +25,17 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
   
   @IBOutlet weak var searchViewHeightConstraint: NSLayoutConstraint!
   var searchController: UISearchController!
-  var url: NSURL?
+  var url: URL?
   
-  func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+  func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
     return true;
+  }
+  
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if let change = change, keyPath == "contentOffset" {
+      let oldValue = change[NSKeyValueChangeKey.oldKey] as? CGPoint
+      let newValue = change[NSKeyValueChangeKey.newKey] as? CGPoint
+    }
   }
   
   override func viewDidLoad() {
@@ -38,13 +45,15 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     webView.scrollView.scrollsToTop = true
     webView.scrollView.delegate = self
 //    textField.delegate = self
+    webView.scrollView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
+
     
     let hideKeyboardGesture = UIGestureRecognizer()
     hideKeyboardGesture.delegate = self
     webView.addGestureRecognizer(hideKeyboardGesture)
     
     let sb = UIStoryboard(name: "Main", bundle: nil)
-    let srController = sb.instantiateViewControllerWithIdentifier("URLSearchResultsController") as! URLSearchResultsController
+    let srController = sb.instantiateViewController(withIdentifier: "URLSearchResultsController") as! URLSearchResultsController
     srController.delegate = self
     searchController = UISearchController(searchResultsController: srController)
     searchController.searchBar.frame = searchView.bounds
@@ -59,12 +68,12 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
 //    let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[searchBar]-|", options: .AlignAllCenterY, metrics: nil, views: views)
 //    searchView.addConstraints(hConstraints)
 //    searchView.addConstraints(vConstraints)
-    searchController.searchBar.autoresizingMask = UIViewAutoresizing.FlexibleWidth
+    searchController.searchBar.autoresizingMask = UIViewAutoresizing.flexibleWidth
 //    searchController.searchBar.translatesAutoresizingMaskIntoConstraints = true
     
-    searchController.searchBar.returnKeyType = UIReturnKeyType.Go
-    searchController.searchBar.autocapitalizationType = UITextAutocapitalizationType.None
-    searchView.bringSubviewToFront(searchController.searchBar)
+    searchController.searchBar.returnKeyType = UIReturnKeyType.go
+    searchController.searchBar.autocapitalizationType = UITextAutocapitalizationType.none
+    searchView.bringSubview(toFront: searchController.searchBar)
   }
   
   override func viewDidLayoutSubviews() {
@@ -73,18 +82,18 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
   }
   
   //MARK: SearchControllerDelegate
-  func didDismissSearchController(searchController: UISearchController) {
-    searchController.searchBar.text = webView.request?.URL?.absoluteString
+  func didDismissSearchController(_ searchController: UISearchController) {
+    searchController.searchBar.text = webView.request?.url?.absoluteString
   }
   
   // MARK: SearchResultsDelegate
-  func didSelectURL(url: NSURL) {
+  func didSelectURL(_ url: URL) {
     searchController.searchBar.text = url.absoluteString
-    self.dismissViewControllerAnimated(true, completion: nil)
-    webView.loadRequest(NSURLRequest(URL: url))
+    self.dismiss(animated: true, completion: nil)
+    webView.loadRequest(URLRequest(url: url))
   }
   
-  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 //    textField.resignFirstResponder()
     return false
   }
@@ -94,15 +103,15 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     // Dispose of any resources that can be recreated.
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
-    if let text = searchController.searchBar.text where text != "" {
+    if let text = searchController.searchBar.text, text != "" {
       return
     }
     
     if let url = self.url {
-      webView.loadRequest(NSURLRequest(URL: url))
+      webView.loadRequest(URLRequest(url: url))
       searchController.searchBar.text = url.absoluteString
     } else {
       searchController.searchBar.becomeFirstResponder()
@@ -114,9 +123,9 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
   }
   
   // MARK: - UIWebViewDelegate
-  func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-    if let string:NSString = request.URL?.absoluteString where string.hasPrefix("newtab:") {
-      if let url = NSURL(string: string.substringFromIndex(7)) {
+  func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    if let string: NSString = request.url?.absoluteString as! NSString, string.hasPrefix("newtab:") {// () -> Bool in
+      if let url = URL(string: string.substring(from: 7)) {
         self.delegate?.webVC(self, shouldOpenNewTabForURL: url)
         return false
       }
@@ -125,33 +134,33 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
   }
   
 
-  func webViewDidFinishLoad(webView: UIWebView) {
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+  func webViewDidFinishLoad(_ webView: UIWebView) {
+    UIApplication.shared.isNetworkActivityIndicatorVisible = false
     
-    if let url = webView.request?.URL {
+    if let url = webView.request?.url {
       WebHistory.defaultHistory.addURL(url)
       searchController.searchBar.text = url.absoluteString
     }
     // JS Injection hack to solve the target="_blank" issue and open a real browser in such case.
     let JSInjection = "javascript: var allLinks = document.getElementsByTagName('a'); if (allLinks) {var i;for (i=0; i<allLinks.length; i++) {var link = allLinks[i];var target = link.getAttribute('target'); if (target && target == '_blank') {link.setAttribute('target','_self');link.href = 'newtab:'+link.href;}}}"
-    webView.stringByEvaluatingJavaScriptFromString(JSInjection)
+    webView.stringByEvaluatingJavaScript(from: JSInjection)
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-      guard let host = webView.request?.URL?.host else {
+    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+      guard let host = webView.request?.url?.host else {
         return
       }
       let urlString = "http://\(host)/favicon.ico"
-      let ur = NSURL(string: urlString)!
-      if let data = NSData(contentsOfURL: ur),
-        image = UIImage(data: data) {
+      let ur = URL(string: urlString)!
+      if let data = try? Data(contentsOf: ur),
+        let image = UIImage(data: data) {
           print(ur)
           self.delegate?.webVC(self, faviconDidLoad: image)
       }
     }
   }
   
-  func webViewDidStartLoad(webView: UIWebView) {
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+  func webViewDidStartLoad(_ webView: UIWebView) {
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
   }
   
   //MARK: textField Delegate
@@ -167,41 +176,41 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
 //  }
   
   // MARK: search bar delegate
-  func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
   }
   
-  func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-    if let textField = searchBar.valueForKey("_searchField") as? UITextField {
+  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    if let textField = searchBar.value(forKey: "_searchField") as? UITextField {
       textField.selectAll(nil)
     }
   }
   
-  func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-    dismissViewControllerAnimated(true, completion: nil)
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    dismiss(animated: true, completion: nil)
     guard let text = searchBar.text else {
       return
     }
     
     let str = text.hasPrefix("http") ? text : "http://\(text)"
     
-    if let url = NSURL(string: str) where url.absoluteString!.rangeOfString(".") != nil {
-      webView.loadRequest(NSURLRequest(URL: url))
+    if let url = URL(string: str), url.absoluteString.range(of: ".") != nil {
+      webView.loadRequest(URLRequest(url: url))
     } else {
-      let txt = "https://www.google.com/search?q=\(text)".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-      webView.loadRequest(NSURLRequest(URL: NSURL(string: txt!)!))
+      let txt = "https://www.google.com/search?q=\(text)".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+      webView.loadRequest(URLRequest(url: URL(string: txt!)!))
     }
   }
   
   //MARK: - UIScrollViewDelegate
   
-  func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     currentOffset = scrollView.contentOffset.y
   }
   
-  func scrollViewDidScroll(scrollView: UIScrollView) {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
     let scrollPos = scrollView.contentOffset.y
     if scrollPos > currentOffset {
-      UIView.animateWithDuration(0.25, animations: {
+      UIView.animate(withDuration: 0.25, animations: {
         self.searchViewHeightConstraint.constant = 0
         self.delegate?.hideTabBarFooter()
       })

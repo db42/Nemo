@@ -10,7 +10,7 @@ import UIKit
 
 class URLSearchResultsController: UITableViewController, UISearchResultsUpdating {
   
-  var searchResults: [NSURL]!
+  var searchResults: [URL]!
   weak var delegate: SearchResultsDelegate?
   
     override func viewDidLoad() {
@@ -26,32 +26,32 @@ class URLSearchResultsController: UITableViewController, UISearchResultsUpdating
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return searchResults.count
     }
   
-  func updateSearchResultsForSearchController(searchController: UISearchController) {
+  func updateSearchResults(for searchController: UISearchController) {
     if let text = searchController.searchBar.text {
       searchResults = WebHistory.defaultHistory.searchForText(text)
       tableView.reloadData()
     }
   }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-      var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      var cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier")
       if (cell == nil) {
-        cell = UITableViewCell(style: .Default, reuseIdentifier: "reuseIdentifier")
+        cell = UITableViewCell(style: .default, reuseIdentifier: "reuseIdentifier")
       }
       let url = searchResults[indexPath.row]
-      cell!.textLabel?.text = url.host! + url.path!
+      cell!.textLabel?.text = url.host! + url.path
       return cell!
     }
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard indexPath.row < searchResults.count else {
       return
     }

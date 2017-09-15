@@ -116,6 +116,7 @@
 					10EF1A621D2785D30050DE8A = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = X5453D3PGA;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -288,7 +289,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nemo/Nemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -306,7 +307,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nemo/Nemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
