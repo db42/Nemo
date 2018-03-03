@@ -15,11 +15,11 @@ protocol SearchResultsDelegate: class {
   func didSelectURL(_ url: URL)
 }
 
-class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate, SearchResultsDelegate, UISearchControllerDelegate, UISearchBarDelegate, UIScrollViewDelegate {
+class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDelegate, SearchResultsDelegate, UISearchControllerDelegate, UISearchBarDelegate, UIScrollViewDelegate {
 
   var currentOffset: CGFloat = 0.0
   @IBOutlet weak var searchView: UIView!
-//  @IBOutlet weak var textField: UITextField!
+
   @IBOutlet weak var webView: NemoWebView!
   weak var delegate: MainVCWebDelegate?
   
@@ -44,7 +44,6 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     webView.delegate = self
     webView.scrollView.scrollsToTop = true
     webView.scrollView.delegate = self
-//    textField.delegate = self
     webView.scrollView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
 
     
@@ -61,15 +60,8 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     searchController.delegate = self
     searchController.searchBar.delegate = self
     
-//    searchView.layoutMargins = UIEdgeInsetsZero
     searchView.addSubview(searchController.searchBar)
-//    let views = ["searchBar": searchController.searchBar]
-//    let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[searchBar]-|", options: .AlignAllCenterX, metrics: nil, views: views)
-//    let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[searchBar]-|", options: .AlignAllCenterY, metrics: nil, views: views)
-//    searchView.addConstraints(hConstraints)
-//    searchView.addConstraints(vConstraints)
     searchController.searchBar.autoresizingMask = UIViewAutoresizing.flexibleWidth
-//    searchController.searchBar.translatesAutoresizingMaskIntoConstraints = true
     
     searchController.searchBar.returnKeyType = UIReturnKeyType.go
     searchController.searchBar.autocapitalizationType = UITextAutocapitalizationType.none
@@ -98,11 +90,6 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
     return false
   }
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-  
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
@@ -124,7 +111,7 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
   
   // MARK: - UIWebViewDelegate
   func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-    if let string: NSString = request.url?.absoluteString as! NSString, string.hasPrefix("newtab:") {// () -> Bool in
+    if let string: NSString = request.url?.absoluteString as? NSString, string.hasPrefix("newtab:") {// () -> Bool in
       if let url = URL(string: string.substring(from: 7)) {
         self.delegate?.webVC(self, shouldOpenNewTabForURL: url)
         return false
@@ -162,18 +149,6 @@ class WebViewController: UIViewController, UITextFieldDelegate, UIWebViewDelegat
   func webViewDidStartLoad(_ webView: UIWebView) {
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
   }
-  
-  //MARK: textField Delegate
-  
-//  func textFieldDidBeginEditing(textField: UITextField) {
-//    if textField.text != "" {
-//      textField.selectAll(nil)
-//    }
-//  }
-//  
-//  func textFieldShouldReturn(textField: UITextField) -> Bool {
-//    return true
-//  }
   
   // MARK: search bar delegate
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

@@ -15,7 +15,7 @@ protocol MainVCWebDelegate: class {
   func showTabBarFooter()
 }
 
-class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCWebDelegate {
+class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 
   typealias Tab = (webVC: WebViewController, button: TabButton, index: Int)
   @IBOutlet weak var contentView: UIView!
@@ -57,7 +57,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-      footerScrollView.setContentOffset(CGPoint(x: footerScrollView.contentSize.width, y: 44), animated: false)
+    footerScrollView.setContentOffset(CGPoint(x: footerScrollView.contentSize.width, y: 44), animated: false)
   }
   
   func button(forVC vc: WebViewController) -> TabButton? {
@@ -84,6 +84,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     
     button(forVC: vc)?.layer.borderColor = UIColor.clear.cgColor
   }
+  
   @IBOutlet weak var goBack: UIButton!
   @IBOutlet weak var goForward: UIButton!
   
@@ -228,14 +229,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
     
   }
   
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-  }
-  
-  override func viewWillLayoutSubviews() {
-    super.viewWillLayoutSubviews()
-  }
-  
   func createAndAddTabButtonToFooter(_ webVC: WebViewController) {
     let button = createTabButton(webVC)
     addTabButton(button!)
@@ -315,17 +308,18 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
   
   func updateFooter(_ webVC: WebViewController) {
   }
-  
-  //MARK: - WebVCDelegate
+}
+
+extension MainViewController: MainVCWebDelegate {
   func webVC(_ webVC: WebViewController, faviconDidLoad image: UIImage) {
-    guard let index = viewControllers.index(of: webVC) else {
+    guard viewControllers.index(of: webVC) != nil else {
       return
     }
     
     DispatchQueue.main.async {
       if let tabView = self.button(forVC: webVC),
-      let imageView = tabView.subviews.first as? UIImageView {
-       imageView.image = image
+        let imageView = tabView.subviews.first as? UIImageView {
+        imageView.image = image
       }
     }
   }
@@ -348,6 +342,5 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate, MainVCW
   func showTabBarFooter() {
     footerHeightConstraint.constant = 52
   }
-
 }
 
