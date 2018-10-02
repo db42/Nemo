@@ -61,11 +61,11 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
     searchController.searchBar.delegate = self
     
     searchView.addSubview(searchController.searchBar)
-    searchController.searchBar.autoresizingMask = UIViewAutoresizing.flexibleWidth
+    searchController.searchBar.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
     
     searchController.searchBar.returnKeyType = UIReturnKeyType.go
     searchController.searchBar.autocapitalizationType = UITextAutocapitalizationType.none
-    searchView.bringSubview(toFront: searchController.searchBar)
+    searchView.bringSubviewToFront(searchController.searchBar)
   }
   
   override func viewDidLayoutSubviews() {
@@ -110,7 +110,7 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
   }
   
   // MARK: - UIWebViewDelegate
-  func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+  func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
     if let string: NSString = request.url?.absoluteString as? NSString, string.hasPrefix("newtab:") {// () -> Bool in
       if let url = URL(string: string.substring(from: 7)) {
         self.delegate?.webVC(self, shouldOpenNewTabForURL: url)

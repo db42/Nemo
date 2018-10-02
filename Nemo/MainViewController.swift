@@ -41,7 +41,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     rightButton.tintColor = undoButton.tintColor
     createAndUpdateNewWebView()
     
-    undoButton.setTitle("Undo", for: UIControlState())
+    undoButton.setTitle("Undo", for: UIControl.State())
     undoButton.isHidden = true
     undoButton.addTarget(self, action: #selector(undoRemoveWebView), for: .touchUpInside)
     footerView.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
@@ -70,17 +70,17 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
   }
   
   func selectedWebVC() -> WebViewController {
-    return childViewControllers.first as! WebViewController
+    return children.first as! WebViewController
   }
   
   func hideCurrentWebView() {
-    guard let vc = childViewControllers.first as? WebViewController else {
+    guard let vc = children.first as? WebViewController else {
       return
     }
     
     vc.view.removeFromSuperview()
-    vc.willMove(toParentViewController: nil)
-    vc.removeFromParentViewController()
+    vc.willMove(toParent: nil)
+    vc.removeFromParent()
     
     button(forVC: vc)?.layer.borderColor = UIColor.clear.cgColor
   }
@@ -100,7 +100,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     createAndUpdateNewWebView()
   }
   
-  func undoRemoveWebView() {
+  @objc func undoRemoveWebView() {
     guard let lastRemovedTab = lastRemovedTab else{
       return
     }
@@ -119,7 +119,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(hideUndoButton), userInfo: nil, repeats: false)
     footerStackView.removeArrangedSubview(button)
     button.removeFromSuperview()
-    if childViewControllers.first == webVC {
+    if children.first == webVC {
       hideCurrentWebView()
       var newVC: WebViewController
       if viewControllers.count == 1 {
@@ -133,7 +133,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     viewControllers.remove(at: index)
   }
   
-  func hideUndoButton() {
+  @objc func hideUndoButton() {
     undoButton.isHidden = true
     lastRemovedTab = nil
   }
@@ -141,9 +141,9 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
   func updateWebView(_ webVC: WebViewController) {
     webVC.view.frame = contentView.bounds
     
-    addChildViewController(webVC)
+    addChild(webVC)
     contentView.addSubview(webVC.view)
-    webVC.didMove(toParentViewController: self)
+    webVC.didMove(toParent: self)
     
     if let button = button(forVC: webVC) {
       button.layer.borderColor = button.tintColor.cgColor
@@ -243,7 +243,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     return fabs(vel.y) > fabs(vel.x)
   }
   
-  func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+  @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
     guard let button = gesture.view as? TabButton,
     let webVC = button.webVC else {
       return
@@ -267,7 +267,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
   }
   
-  func handleScreenEdgePanGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
+  @objc func handleScreenEdgePanGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
     let webView = selectedWebVC().webView
     let centerX = (webView?.frame.width)!/2
     
@@ -291,14 +291,14 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
   }
   
-  func reloadPage(_ gesture: UIGestureRecognizer) {
+  @objc func reloadPage(_ gesture: UIGestureRecognizer) {
     guard let button = gesture.view as? TabButton else {
       return
     }
     button.webVC?.reloadPage()
   }
   
-  func updateCurrentWebView(_ gesture: UIGestureRecognizer) {
+  @objc func updateCurrentWebView(_ gesture: UIGestureRecognizer) {
     guard let button = gesture.view as? TabButton else {
       return
     }
