@@ -132,7 +132,7 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
     let JSInjection = "javascript: var allLinks = document.getElementsByTagName('a'); if (allLinks) {var i;for (i=0; i<allLinks.length; i++) {var link = allLinks[i];var target = link.getAttribute('target'); if (target && target == '_blank') {link.setAttribute('target','_self');link.href = 'newtab:'+link.href;}}}"
     webView.stringByEvaluatingJavaScript(from: JSInjection)
     
-    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+    DispatchQueue.global().async {
       guard let host = webView.request?.url?.host else {
         return
       }

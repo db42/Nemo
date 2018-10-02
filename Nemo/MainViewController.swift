@@ -240,7 +240,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     let vel = pan.velocity(in: view)
-    return fabs(vel.y) > fabs(vel.x)
+    return abs(vel.y) > abs(vel.x)
   }
   
   @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
