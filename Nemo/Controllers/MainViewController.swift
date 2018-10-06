@@ -245,11 +245,14 @@ extension MainViewController: MainVCWebDelegate {
   }
   
   func hideTabBarFooter() {
+    //TODO better way to do this. BONUS: show web view in safe area
     footerHeightConstraint.constant = 0
+    footerView.isHidden = true
   }
   
   func showTabBarFooter() {
     footerHeightConstraint.constant = 52
+    footerView.isHidden = false
   }
 }
 
