@@ -24,10 +24,12 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 class WebHistory {
   static var defaultHistory = WebHistory()
   var URLs: [String: Int]
+  let pathComponent: String
   
-  init() {
+  init(_ pathComponent: String = "data.data") {
+    self.pathComponent = pathComponent
     let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
-    let url = URL(fileURLWithPath: paths).appendingPathComponent("data.data")
+    let url = URL(fileURLWithPath: paths).appendingPathComponent(pathComponent)
     let path = url.path
     guard FileManager.default.fileExists(atPath: path) else {
       URLs = [:]
@@ -58,7 +60,7 @@ class WebHistory {
     save()
   }
   
-  func save() {
+  fileprivate func save() {
     print(URLs)
     let data: Data
     do {
@@ -69,7 +71,7 @@ class WebHistory {
     }
     
     let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
-    let url = URL(fileURLWithPath: paths).appendingPathComponent("data.data")
+    let url = URL(fileURLWithPath: paths).appendingPathComponent(pathComponent)
     let path = url.path    
     if (!FileManager.default.fileExists(atPath: path)) {
       FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
@@ -84,7 +86,7 @@ class WebHistory {
     }
   }
   
-  func cleanURL(_ url: String) -> String {
+  fileprivate func cleanURL(_ url: String) -> String {
 //TODO:
 //    let url = NSURL(string: url)!
 //    return url.host! + url.path!

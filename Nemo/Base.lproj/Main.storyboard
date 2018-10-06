@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mHo-PL-zxF">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mHo-PL-zxF">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -34,20 +34,8 @@
                                             <constraint firstAttribute="height" constant="1" id="3Ss-jp-vrh"/>
                                         </constraints>
                                     </view>
-                                    <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bi0-hS-ttL">
+                                    <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bi0-hS-ttL" customClass="ScrollableTabView" customModule="Nemo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="255" height="52"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="right" ambiguous="YES" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Nag-g2-dcP">
-                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="52"/>
-                                            </stackView>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="Nag-g2-dcP" firstAttribute="top" secondItem="Bi0-hS-ttL" secondAttribute="top" id="HBH-M3-Xd3"/>
-                                            <constraint firstItem="Nag-g2-dcP" firstAttribute="height" secondItem="Bi0-hS-ttL" secondAttribute="height" id="iBZ-KW-M1d"/>
-                                            <constraint firstAttribute="bottom" secondItem="Nag-g2-dcP" secondAttribute="bottom" id="jeh-3x-Jhs"/>
-                                            <constraint firstItem="Nag-g2-dcP" firstAttribute="leading" secondItem="Bi0-hS-ttL" secondAttribute="leading" id="moQ-PB-bwJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="Nag-g2-dcP" secondAttribute="trailing" id="ubT-Nf-C8r"/>
-                                        </constraints>
                                     </scrollView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SjQ-48-AVr">
                                         <rect key="frame" x="255" y="1" width="120" height="51"/>
@@ -134,7 +122,6 @@
                         <outlet property="footerHeightConstraint" destination="dkU-Ia-h83" id="5Wf-0s-Whh"/>
                         <outlet property="footerNewTabView" destination="SjQ-48-AVr" id="zLe-lW-xG1"/>
                         <outlet property="footerScrollView" destination="Bi0-hS-ttL" id="x6g-Fd-ZNQ"/>
-                        <outlet property="footerStackView" destination="Nag-g2-dcP" id="kq9-yx-WHt"/>
                         <outlet property="footerView" destination="qdz-Yq-yUU" id="kiv-pR-RGM"/>
                         <outlet property="leftButton" destination="mid-4J-o3c" id="9Vz-iY-A9j"/>
                         <outlet property="rightButton" destination="jYn-Gs-Q1C" id="Iho-Ps-jgT"/>
@@ -143,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9vj-zA-fja" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="152" y="210"/>
+            <point key="canvasLocation" x="-194" y="192"/>
         </scene>
         <!--Web VC-->
         <scene sceneID="tne-QT-ifu">
@@ -188,7 +175,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="511" y="210"/>
+            <point key="canvasLocation" x="441" y="138"/>
         </scene>
         <!--URL Search Results Controller-->
         <scene sceneID="WZb-Yg-dTl">
@@ -216,7 +203,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5gm-dz-iqg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="893" y="210"/>
+            <point key="canvasLocation" x="1074" y="129"/>
         </scene>
     </scenes>
     <resources>

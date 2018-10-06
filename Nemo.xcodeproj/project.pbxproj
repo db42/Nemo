@@ -17,7 +17,20 @@
 		10EF1A6C1D2785D30050DE8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EF1A6A1D2785D30050DE8A /* Main.storyboard */; };
 		10EF1A6E1D2785D30050DE8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10EF1A6D1D2785D30050DE8A /* Assets.xcassets */; };
 		10EF1A711D2785D30050DE8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EF1A6F1D2785D30050DE8A /* LaunchScreen.storyboard */; };
+		4A1F2CEA216351D600882130 /* NemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1F2CE9216351D600882130 /* NemoTests.swift */; };
+		4A1F2CF2216351FF00882130 /* WebHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1F2CF1216351FF00882130 /* WebHistoryTests.swift */; };
+		4A1F2CF42165241500882130 /* ScrollableTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1F2CF32165241500882130 /* ScrollableTabView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4A1F2CEC216351D600882130 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10EF1A5B1D2785D30050DE8A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 10EF1A621D2785D30050DE8A;
+			remoteInfo = Nemo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		102BF1731D7B3B4400C4E8CA /* URLSearchResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSearchResultsController.swift; sourceTree = "<group>"; };
@@ -34,10 +47,22 @@
 		10EF1A6D1D2785D30050DE8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10EF1A701D2785D30050DE8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10EF1A721D2785D30050DE8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A1F2CE7216351D600882130 /* NemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A1F2CE9216351D600882130 /* NemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NemoTests.swift; sourceTree = "<group>"; };
+		4A1F2CEB216351D600882130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A1F2CF1216351FF00882130 /* WebHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebHistoryTests.swift; sourceTree = "<group>"; };
+		4A1F2CF32165241500882130 /* ScrollableTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableTabView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		10EF1A601D2785D30050DE8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A1F2CE4216351D600882130 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -51,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				10EF1A651D2785D30050DE8A /* Nemo */,
+				4A1F2CE8216351D600882130 /* NemoTests */,
 				10EF1A641D2785D30050DE8A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				10EF1A631D2785D30050DE8A /* Nemo.app */,
+				4A1F2CE7216351D600882130 /* NemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,8 +106,19 @@
 				103570E71D44E1CC000A4698 /* NSString+Helper.m */,
 				102BF1731D7B3B4400C4E8CA /* URLSearchResultsController.swift */,
 				102BF1751D7BFAB000C4E8CA /* WebHistory.swift */,
+				4A1F2CF32165241500882130 /* ScrollableTabView.swift */,
 			);
 			path = Nemo;
+			sourceTree = "<group>";
+		};
+		4A1F2CE8216351D600882130 /* NemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				4A1F2CE9216351D600882130 /* NemoTests.swift */,
+				4A1F2CEB216351D600882130 /* Info.plist */,
+				4A1F2CF1216351FF00882130 /* WebHistoryTests.swift */,
+			);
+			path = NemoTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -103,20 +141,43 @@
 			productReference = 10EF1A631D2785D30050DE8A /* Nemo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4A1F2CE6216351D600882130 /* NemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A1F2CEE216351D600882130 /* Build configuration list for PBXNativeTarget "NemoTests" */;
+			buildPhases = (
+				4A1F2CE3216351D600882130 /* Sources */,
+				4A1F2CE4216351D600882130 /* Frameworks */,
+				4A1F2CE5216351D600882130 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4A1F2CED216351D600882130 /* PBXTargetDependency */,
+			);
+			name = NemoTests;
+			productName = NemoTests;
+			productReference = 4A1F2CE7216351D600882130 /* NemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		10EF1A5B1D2785D30050DE8A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Dushyant Bansal";
 				TargetAttributes = {
 					10EF1A621D2785D30050DE8A = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = X5453D3PGA;
+						DevelopmentTeam = YYP67XJVVR;
 						LastSwiftMigration = 1000;
+					};
+					4A1F2CE6216351D600882130 = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 10EF1A621D2785D30050DE8A;
 					};
 				};
 			};
@@ -134,6 +195,7 @@
 			projectRoot = "";
 			targets = (
 				10EF1A621D2785D30050DE8A /* Nemo */,
+				4A1F2CE6216351D600882130 /* NemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -146,6 +208,13 @@
 				10EF1A711D2785D30050DE8A /* LaunchScreen.storyboard in Resources */,
 				10EF1A6E1D2785D30050DE8A /* Assets.xcassets in Resources */,
 				10EF1A6C1D2785D30050DE8A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A1F2CE5216351D600882130 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,10 +232,28 @@
 				10EF1A671D2785D30050DE8A /* AppDelegate.swift in Sources */,
 				103B794B1D2F9D64001B9233 /* WebViewController.swift in Sources */,
 				103570E81D44E1CC000A4698 /* NSString+Helper.m in Sources */,
+				4A1F2CF42165241500882130 /* ScrollableTabView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A1F2CE3216351D600882130 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A1F2CEA216351D600882130 /* NemoTests.swift in Sources */,
+				4A1F2CF2216351FF00882130 /* WebHistoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4A1F2CED216351D600882130 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 10EF1A621D2785D30050DE8A /* Nemo */;
+			targetProxy = 4A1F2CEC216351D600882130 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		10EF1A6A1D2785D30050DE8A /* Main.storyboard */ = {
@@ -302,6 +389,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = YYP67XJVVR;
 				INFOPLIST_FILE = Nemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = in.db42.Nemo;
@@ -321,6 +409,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = YYP67XJVVR;
 				INFOPLIST_FILE = Nemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = in.db42.Nemo;
@@ -330,6 +419,55 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		4A1F2CEF216351D600882130 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = NemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = in.db42.test.NemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nemo.app/Nemo";
+			};
+			name = Debug;
+		};
+		4A1F2CF0216351D600882130 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = NemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = in.db42.test.NemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nemo.app/Nemo";
 			};
 			name = Release;
 		};
@@ -350,6 +488,15 @@
 			buildConfigurations = (
 				10EF1A761D2785D30050DE8A /* Debug */,
 				10EF1A771D2785D30050DE8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4A1F2CEE216351D600882130 /* Build configuration list for PBXNativeTarget "NemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A1F2CEF216351D600882130 /* Debug */,
+				4A1F2CF0216351D600882130 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
