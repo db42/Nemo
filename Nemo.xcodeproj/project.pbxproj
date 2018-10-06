@@ -93,18 +93,14 @@
 		10EF1A651D2785D30050DE8A /* Nemo */ = {
 			isa = PBXGroup;
 			children = (
-				10EF1A661D2785D30050DE8A /* AppDelegate.swift */,
-				10EF1A681D2785D30050DE8A /* MainViewController.swift */,
-				10EF1A6A1D2785D30050DE8A /* Main.storyboard */,
 				10EF1A6D1D2785D30050DE8A /* Assets.xcassets */,
-				10EF1A6F1D2785D30050DE8A /* LaunchScreen.storyboard */,
 				10EF1A721D2785D30050DE8A /* Info.plist */,
-				103B794A1D2F9D64001B9233 /* WebViewController.swift */,
-				10A6D6861D357B7B00FCFE75 /* TabButton.swift */,
 				103570E11D44E0CA000A4698 /* Nemo-Bridging-Header.h */,
-				103570E61D44E1CC000A4698 /* NSString+Helper.h */,
-				103570E71D44E1CC000A4698 /* NSString+Helper.m */,
-				102BF1731D7B3B4400C4E8CA /* URLSearchResultsController.swift */,
+				10EF1A661D2785D30050DE8A /* AppDelegate.swift */,
+				4A1F2D2821685EE900882130 /* Controllers */,
+				4A1F2D2721685ECA00882130 /* Utility */,
+				4A1F2D2621685EB800882130 /* Storyboards */,
+				10A6D6861D357B7B00FCFE75 /* TabButton.swift */,
 				102BF1751D7BFAB000C4E8CA /* WebHistory.swift */,
 				4A1F2CF32165241500882130 /* ScrollableTabView.swift */,
 			);
@@ -119,6 +115,34 @@
 				4A1F2CF1216351FF00882130 /* WebHistoryTests.swift */,
 			);
 			path = NemoTests;
+			sourceTree = "<group>";
+		};
+		4A1F2D2621685EB800882130 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				10EF1A6A1D2785D30050DE8A /* Main.storyboard */,
+				10EF1A6F1D2785D30050DE8A /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		4A1F2D2721685ECA00882130 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				103570E61D44E1CC000A4698 /* NSString+Helper.h */,
+				103570E71D44E1CC000A4698 /* NSString+Helper.m */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		4A1F2D2821685EE900882130 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				10EF1A681D2785D30050DE8A /* MainViewController.swift */,
+				103B794A1D2F9D64001B9233 /* WebViewController.swift */,
+				102BF1731D7B3B4400C4E8CA /* URLSearchResultsController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

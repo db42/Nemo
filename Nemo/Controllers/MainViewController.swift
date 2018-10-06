@@ -26,6 +26,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
   @IBOutlet weak var leftButton: UIButton!
   @IBOutlet weak var rightButton: UIButton!
   @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint!
+  
   var originalFrame: CGRect = CGRect.zero
   var viewControllers: [WebViewController] = []
   var lastRemovedTab: Tab? = nil
@@ -47,7 +48,18 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     footerNewTabView.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
     footerScrollView.scrollsToTop = false
     
+    footerScrollView.tabViewDelegate = self
     contentView.backgroundColor = UIColor.darkGray
+  }
+  
+  func addPanGestures() {
+    let leftScreenEdgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleScreenEdgePanGesture(_:)))
+    leftScreenEdgePanGesture.edges = UIRectEdge.left
+    view.addGestureRecognizer(leftScreenEdgePanGesture)
+    
+    let rightScreenEdgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleScreenEdgePanGesture(_:)))
+    rightScreenEdgePanGesture.edges = UIRectEdge.right
+    view.addGestureRecognizer(rightScreenEdgePanGesture)
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -137,6 +149,30 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     lastRemovedTab = nil
   }
   
+  @objc func handleScreenEdgePanGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
+    let webView = selectedWebVC().webView
+    let centerX = (webView?.frame.width)!/2
+    
+    switch gesture.state {
+    case .began:
+      originalFrame = (webView?.frame)!
+    case .changed:
+      let point = gesture.translation(in: view)
+      let frame = webView?.frame.offsetBy(dx: point.x, dy: 0)
+      webView?.frame = frame!
+      gesture.setTranslation(CGPoint.zero, in: view)
+    case .ended:
+      if (webView?.frame.minX)! > centerX { //swipe right
+        selectedWebVC().webView.goBack()
+      } else if (webView?.frame.maxX)! < centerX { //swipe left
+        selectedWebVC().webView.goForward()
+      }
+      webView?.frame = originalFrame
+    default:
+      break
+    }
+  }
+  
   func updateWebView(_ webVC: WebViewController) {
     webVC.view.frame = contentView.bounds
     
@@ -174,120 +210,11 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
   }
   
   //MARK: Footer stack view
-  func createTabButton(_ webVC: WebViewController) -> TabButton? {
-    let tabView = TabButton(frame: CGRect(x: 0,y: 0,width: 44,height: 44))
-    tabView.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
-    tabView.widthAnchor.constraint(equalToConstant: 44.0).isActive = true
-    let image = UIImageView(frame: tabView.bounds.insetBy(dx: 6, dy: 4))
-    let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(updateCurrentWebView(_:)))
-    singleTapGesture.numberOfTapsRequired = 1
-    
-    let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(reloadPage(_:)))
-    doubleTapGesture.numberOfTapsRequired = 2
-    
-    let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-    panGesture.delegate = self
-    tabView.addGestureRecognizer(panGesture)
-    
-    let leftScreenEdgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleScreenEdgePanGesture(_:)))
-    leftScreenEdgePanGesture.edges = UIRectEdge.left
-    view.addGestureRecognizer(leftScreenEdgePanGesture)
-    
-    let rightScreenEdgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleScreenEdgePanGesture(_:)))
-    rightScreenEdgePanGesture.edges = UIRectEdge.right
-    view.addGestureRecognizer(rightScreenEdgePanGesture)
-//    singleTapGesture.requireGestureRecognizerToFail(doubleTapGesture)
-    tabView.addGestureRecognizer(singleTapGesture)
-    tabView.addGestureRecognizer(doubleTapGesture)
-    
-    image.image = UIImage(named: "favicon")
-    tabView.layer.cornerRadius = 2.0
-    tabView.layer.masksToBounds = true
-    tabView.layer.borderWidth = 1
-//    tabView.backgroundColor = UIColor.whiteColor()
-    tabView.webVC = webVC
-    tabView.addSubview(image)
-    return tabView
+  func createAndAddTabButtonToFooter(_ webVC: WebViewController) {
+    let button = footerScrollView.createTabButton()
+    button.webVC = webVC
   }
 
-  
-  func createAndAddTabButtonToFooter(_ webVC: WebViewController) {
-    let button = createTabButton(webVC)
-    footerScrollView.addTabButton(button!)
-  }
-  
-  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    guard let pan = gestureRecognizer as? UIPanGestureRecognizer else {
-      return false
-    }
-    
-    let vel = pan.velocity(in: view)
-    return abs(vel.y) > abs(vel.x)
-  }
-  
-  @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-    guard let button = gesture.view as? TabButton,
-    let webVC = button.webVC else {
-      return
-    }
-    switch gesture.state {
-    case .began:
-      originalFrame = button.frame
-    case .changed:
-      let point = gesture.translation(in: view)
-      let frame = button.frame.offsetBy(dx: point.x, dy: point.y)
-      button.frame = frame
-      gesture.setTranslation(CGPoint.zero, in: view)
-    case .ended:
-      if button.frame.maxY < 0 {
-        removeWebView(webVC, button: button)
-      } else {
-        button.frame = originalFrame
-      }
-    default:
-      break
-    }
-  }
-  
-  @objc func handleScreenEdgePanGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
-    let webView = selectedWebVC().webView
-    let centerX = (webView?.frame.width)!/2
-    
-    switch gesture.state {
-    case .began:
-      originalFrame = (webView?.frame)!
-    case .changed:
-      let point = gesture.translation(in: view)
-      let frame = webView?.frame.offsetBy(dx: point.x, dy: 0)
-      webView?.frame = frame!
-      gesture.setTranslation(CGPoint.zero, in: view)
-    case .ended:
-      if (webView?.frame.minX)! > centerX { //swipe right
-        selectedWebVC().webView.goBack()
-      } else if (webView?.frame.maxX)! < centerX { //swipe left
-        selectedWebVC().webView.goForward()
-      }
-      webView?.frame = originalFrame
-    default:
-      break
-    }
-  }
-  
-  @objc func reloadPage(_ gesture: UIGestureRecognizer) {
-    guard let button = gesture.view as? TabButton else {
-      return
-    }
-    button.webVC?.reloadPage()
-  }
-  
-  @objc func updateCurrentWebView(_ gesture: UIGestureRecognizer) {
-    guard let button = gesture.view as? TabButton else {
-      return
-    }
-    hideCurrentWebView()
-    updateWebView(button.webVC!)
-  }
-  
   func updateFooter(_ webVC: WebViewController) {
   }
 }
@@ -323,6 +250,23 @@ extension MainViewController: MainVCWebDelegate {
   
   func showTabBarFooter() {
     footerHeightConstraint.constant = 52
+  }
+}
+
+extension MainViewController: ScrollableTabViewDelegate {
+  func reloadTab(_ button: TabButton) {
+    button.webVC?.reloadPage()
+  }
+  
+  func closeTab(_ button: TabButton) {
+    if let webVC = button.webVC {
+      removeWebView(webVC, button: button)
+    }
+  }
+  
+  func selectTab(_ button: TabButton) {
+    hideCurrentWebView()
+    updateWebView(button.webVC!)
   }
 }
 
