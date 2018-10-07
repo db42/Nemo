@@ -31,7 +31,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
   var viewControllers: [WebViewController] = []
   var lastRemovedTab: Tab? = nil
   
-  @IBOutlet weak var footerOffsetConstraint: NSLayoutConstraint!
   @IBOutlet weak var undoButton: UIButton!
   
   override func viewDidLoad() {
@@ -44,8 +43,8 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     undoButton.setTitle("Undo", for: UIControl.State())
     undoButton.isHidden = true
     undoButton.addTarget(self, action: #selector(undoRemoveWebView), for: .touchUpInside)
-    footerView.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
-    footerNewTabView.backgroundColor = UIColor(red: (247.0/255.0), green:(247.0/255.0) , blue:(247.0/255.0) , alpha: 1)
+    footerView.backgroundColor = UIColor.footerColor
+    footerNewTabView.backgroundColor = UIColor.footerColor
     footerScrollView.scrollsToTop = false
     
     footerScrollView.tabViewDelegate = self

@@ -22,86 +22,97 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pe-oV-onh" userLabel="Content">
-                                <rect key="frame" x="0.0" y="44" width="375" height="682"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="681"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdz-Yq-yUU" userLabel="Bottom">
-                                <rect key="frame" x="0.0" y="726" width="375" height="52"/>
+                                <rect key="frame" x="0.0" y="725" width="375" height="87"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUA-a5-TWF" userLabel="Border">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUA-a5-TWF" userLabel="Separator">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="3Ss-jp-vrh"/>
                                         </constraints>
                                     </view>
-                                    <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bi0-hS-ttL" customClass="ScrollableTabView" customModule="Nemo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="255" height="52"/>
-                                    </scrollView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SjQ-48-AVr">
-                                        <rect key="frame" x="255" y="1" width="120" height="51"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6m-Bw-Aw1">
+                                        <rect key="frame" x="0.0" y="1" width="375" height="52"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mid-4J-o3c">
-                                                <rect key="frame" x="8" y="15" width="22" height="21"/>
+                                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bi0-hS-ttL" customClass="ScrollableTabView" customModule="Nemo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="255" height="52"/>
+                                            </scrollView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SjQ-48-AVr">
+                                                <rect key="frame" x="255" y="0.0" width="120" height="52"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mid-4J-o3c">
+                                                        <rect key="frame" x="8" y="15" width="22" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="22" id="XVp-f6-64L"/>
+                                                            <constraint firstAttribute="width" constant="22" id="Yue-rR-odG"/>
+                                                        </constraints>
+                                                        <state key="normal" image="swipe-left"/>
+                                                        <connections>
+                                                            <action selector="goBack:" destination="mHo-PL-zxF" eventType="touchUpInside" id="hzJ-th-Ute"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2W-qs-xKN">
+                                                        <rect key="frame" x="90" y="15" width="22" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="22" id="Weh-fu-vTJ"/>
+                                                            <constraint firstAttribute="width" constant="22" id="sgV-cu-SHi"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <action selector="addNewTab:" destination="mHo-PL-zxF" eventType="touchUpInside" id="TUC-0H-jiO"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYn-Gs-Q1C">
+                                                        <rect key="frame" x="49" y="15" width="22" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="22" id="8J7-Nm-u0U"/>
+                                                            <constraint firstAttribute="height" constant="22" id="Hk2-Fv-Uh8"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button" image="swipe-right"/>
+                                                        <connections>
+                                                            <action selector="goForward:" destination="mHo-PL-zxF" eventType="touchUpInside" id="XEx-MB-gCh"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="22" id="Yue-rR-odG"/>
+                                                    <constraint firstItem="jYn-Gs-Q1C" firstAttribute="centerX" secondItem="SjQ-48-AVr" secondAttribute="centerX" id="O3k-fC-M9e"/>
+                                                    <constraint firstAttribute="width" constant="120" id="Ohl-Mv-e4Z"/>
+                                                    <constraint firstItem="w2W-qs-xKN" firstAttribute="centerY" secondItem="SjQ-48-AVr" secondAttribute="centerY" id="RBi-pY-whk"/>
+                                                    <constraint firstAttribute="trailing" secondItem="w2W-qs-xKN" secondAttribute="trailing" constant="8" id="Zay-ZX-1xZ"/>
+                                                    <constraint firstItem="mid-4J-o3c" firstAttribute="centerY" secondItem="w2W-qs-xKN" secondAttribute="centerY" id="bar-Np-oox"/>
+                                                    <constraint firstItem="mid-4J-o3c" firstAttribute="leading" secondItem="SjQ-48-AVr" secondAttribute="leading" constant="8" id="nlv-DT-Lnu"/>
+                                                    <constraint firstItem="jYn-Gs-Q1C" firstAttribute="centerY" secondItem="SjQ-48-AVr" secondAttribute="centerY" id="xzM-se-0HU"/>
                                                 </constraints>
-                                                <state key="normal" image="swipe-left"/>
-                                                <connections>
-                                                    <action selector="goBack:" destination="mHo-PL-zxF" eventType="touchUpInside" id="hzJ-th-Ute"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2W-qs-xKN">
-                                                <rect key="frame" x="90" y="15" width="22" height="21"/>
-                                                <connections>
-                                                    <action selector="addNewTab:" destination="mHo-PL-zxF" eventType="touchUpInside" id="TUC-0H-jiO"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYn-Gs-Q1C">
-                                                <rect key="frame" x="49" y="15" width="22" height="21"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="22" id="8J7-Nm-u0U"/>
-                                                </constraints>
-                                                <state key="normal" title="Button" image="swipe-right"/>
-                                                <connections>
-                                                    <action selector="goForward:" destination="mHo-PL-zxF" eventType="touchUpInside" id="XEx-MB-gCh"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="w2W-qs-xKN" firstAttribute="top" secondItem="SjQ-48-AVr" secondAttribute="top" constant="15" id="0tC-AL-EXz"/>
-                                            <constraint firstAttribute="bottom" secondItem="mid-4J-o3c" secondAttribute="bottom" constant="15" id="Bfe-AP-uDV"/>
-                                            <constraint firstItem="jYn-Gs-Q1C" firstAttribute="centerX" secondItem="SjQ-48-AVr" secondAttribute="centerX" id="O3k-fC-M9e"/>
-                                            <constraint firstAttribute="width" constant="120" id="Ohl-Mv-e4Z"/>
-                                            <constraint firstItem="jYn-Gs-Q1C" firstAttribute="top" secondItem="SjQ-48-AVr" secondAttribute="top" constant="15" id="QJO-S9-mKu"/>
-                                            <constraint firstItem="w2W-qs-xKN" firstAttribute="centerY" secondItem="SjQ-48-AVr" secondAttribute="centerY" id="RBi-pY-whk"/>
-                                            <constraint firstAttribute="bottom" secondItem="w2W-qs-xKN" secondAttribute="bottom" constant="15" id="Shk-1B-avh"/>
-                                            <constraint firstAttribute="trailing" secondItem="w2W-qs-xKN" secondAttribute="trailing" constant="8" id="Zay-ZX-1xZ"/>
-                                            <constraint firstItem="mid-4J-o3c" firstAttribute="top" secondItem="SjQ-48-AVr" secondAttribute="top" constant="15" id="jsn-hM-R3x"/>
-                                            <constraint firstAttribute="bottom" secondItem="jYn-Gs-Q1C" secondAttribute="bottom" constant="15" id="kg2-4l-6y4"/>
-                                            <constraint firstItem="mid-4J-o3c" firstAttribute="leading" secondItem="SjQ-48-AVr" secondAttribute="leading" constant="8" id="nlv-DT-Lnu"/>
-                                            <constraint firstItem="jYn-Gs-Q1C" firstAttribute="centerY" secondItem="SjQ-48-AVr" secondAttribute="centerY" id="xzM-se-0HU"/>
+                                            <constraint firstAttribute="height" constant="52" id="BNM-a4-TVc"/>
                                         </constraints>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rPn-XY-lVm" userLabel="Padding view">
+                                        <rect key="frame" x="0.0" y="53" width="375" height="34"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Bi0-hS-ttL" firstAttribute="trailing" secondItem="SjQ-48-AVr" secondAttribute="leading" id="0Yh-Jm-ff8"/>
+                                    <constraint firstItem="rPn-XY-lVm" firstAttribute="top" secondItem="a6m-Bw-Aw1" secondAttribute="bottom" id="3U3-SK-Ewi"/>
                                     <constraint firstItem="eUA-a5-TWF" firstAttribute="top" secondItem="qdz-Yq-yUU" secondAttribute="top" id="7In-NU-Iso"/>
-                                    <constraint firstItem="Bi0-hS-ttL" firstAttribute="top" secondItem="qdz-Yq-yUU" secondAttribute="top" id="GZ5-P8-VZI"/>
-                                    <constraint firstAttribute="bottom" secondItem="Bi0-hS-ttL" secondAttribute="bottom" id="NaH-gX-SsQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="SjQ-48-AVr" secondAttribute="trailing" id="RdT-jS-4Ro"/>
+                                    <constraint firstAttribute="trailing" secondItem="rPn-XY-lVm" secondAttribute="trailing" id="9yb-j7-By9"/>
                                     <constraint firstAttribute="trailing" secondItem="eUA-a5-TWF" secondAttribute="trailing" id="TlM-6g-fb4"/>
+                                    <constraint firstAttribute="bottom" secondItem="rPn-XY-lVm" secondAttribute="bottom" id="UCa-ie-Hhr"/>
                                     <constraint firstItem="eUA-a5-TWF" firstAttribute="leading" secondItem="qdz-Yq-yUU" secondAttribute="leading" id="Z1F-8h-eZm"/>
-                                    <constraint firstAttribute="height" constant="52" id="dkU-Ia-h83"/>
-                                    <constraint firstAttribute="bottom" secondItem="SjQ-48-AVr" secondAttribute="bottom" id="jF6-Cg-qNW"/>
-                                    <constraint firstItem="Bi0-hS-ttL" firstAttribute="leading" secondItem="qdz-Yq-yUU" secondAttribute="leading" id="tKI-dl-4gJ"/>
-                                    <constraint firstItem="SjQ-48-AVr" firstAttribute="top" secondItem="eUA-a5-TWF" secondAttribute="bottom" id="vQe-8g-Ao3"/>
-                                    <constraint firstItem="Bi0-hS-ttL" firstAttribute="height" secondItem="qdz-Yq-yUU" secondAttribute="height" id="vse-Ot-rz0"/>
+                                    <constraint firstItem="rPn-XY-lVm" firstAttribute="leading" secondItem="qdz-Yq-yUU" secondAttribute="leading" id="iFX-vu-Ovn"/>
+                                    <constraint firstAttribute="trailing" secondItem="a6m-Bw-Aw1" secondAttribute="trailing" id="piL-6g-c2i"/>
+                                    <constraint firstItem="a6m-Bw-Aw1" firstAttribute="leading" secondItem="qdz-Yq-yUU" secondAttribute="leading" id="xBc-8K-tcl"/>
+                                    <constraint firstItem="a6m-Bw-Aw1" firstAttribute="top" secondItem="eUA-a5-TWF" secondAttribute="bottom" id="yGy-LW-pWL"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJB-0l-dgm" userLabel="Undo close tab">
-                                <rect key="frame" x="321" y="688" width="46" height="30"/>
+                                <rect key="frame" x="321" y="687" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                             </button>
                         </subviews>
@@ -113,14 +124,15 @@
                             <constraint firstItem="4pe-oV-onh" firstAttribute="top" secondItem="HYW-Yj-lRu" secondAttribute="bottom" id="NM1-8R-nVm"/>
                             <constraint firstAttribute="trailing" secondItem="4pe-oV-onh" secondAttribute="trailing" id="OXA-xD-O86"/>
                             <constraint firstAttribute="trailing" secondItem="ZJB-0l-dgm" secondAttribute="trailing" constant="8" id="WpC-1q-kbd"/>
-                            <constraint firstItem="cYT-Fb-gMq" firstAttribute="top" secondItem="qdz-Yq-yUU" secondAttribute="bottom" id="eid-gL-vdt"/>
+                            <constraint firstAttribute="bottom" secondItem="qdz-Yq-yUU" secondAttribute="bottom" id="eid-gL-vdt"/>
                             <constraint firstItem="qdz-Yq-yUU" firstAttribute="leading" secondItem="aih-3l-MrQ" secondAttribute="leading" id="hUt-5R-AaC"/>
+                            <constraint firstItem="cYT-Fb-gMq" firstAttribute="top" secondItem="a6m-Bw-Aw1" secondAttribute="bottom" id="qn5-b2-sdl"/>
                             <constraint firstItem="qdz-Yq-yUU" firstAttribute="top" secondItem="ZJB-0l-dgm" secondAttribute="bottom" constant="8" id="u9l-J0-Yna"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="contentView" destination="4pe-oV-onh" id="VWB-tV-hNS"/>
-                        <outlet property="footerHeightConstraint" destination="dkU-Ia-h83" id="5Wf-0s-Whh"/>
+                        <outlet property="footerHeightConstraint" destination="BNM-a4-TVc" id="dUt-e5-Ab6"/>
                         <outlet property="footerNewTabView" destination="SjQ-48-AVr" id="zLe-lW-xG1"/>
                         <outlet property="footerScrollView" destination="Bi0-hS-ttL" id="x6g-Fd-ZNQ"/>
                         <outlet property="footerView" destination="qdz-Yq-yUU" id="kiv-pR-RGM"/>

@@ -20,6 +20,7 @@
 		4A1F2CEA216351D600882130 /* NemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1F2CE9216351D600882130 /* NemoTests.swift */; };
 		4A1F2CF2216351FF00882130 /* WebHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1F2CF1216351FF00882130 /* WebHistoryTests.swift */; };
 		4A1F2CF42165241500882130 /* ScrollableTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1F2CF32165241500882130 /* ScrollableTabView.swift */; };
+		4A1F2D2B2169B30E00882130 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1F2D2A2169B30E00882130 /* UIColor+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		4A1F2CEB216351D600882130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A1F2CF1216351FF00882130 /* WebHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebHistoryTests.swift; sourceTree = "<group>"; };
 		4A1F2CF32165241500882130 /* ScrollableTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableTabView.swift; sourceTree = "<group>"; };
+		4A1F2D2A2169B30E00882130 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +102,8 @@
 				4A1F2D2821685EE900882130 /* Controllers */,
 				4A1F2D2721685ECA00882130 /* Utility */,
 				4A1F2D2621685EB800882130 /* Storyboards */,
-				10A6D6861D357B7B00FCFE75 /* TabButton.swift */,
+				4A1F2D292169B25700882130 /* View */,
 				102BF1751D7BFAB000C4E8CA /* WebHistory.swift */,
-				4A1F2CF32165241500882130 /* ScrollableTabView.swift */,
 			);
 			path = Nemo;
 			sourceTree = "<group>";
@@ -131,6 +132,7 @@
 			children = (
 				103570E61D44E1CC000A4698 /* NSString+Helper.h */,
 				103570E71D44E1CC000A4698 /* NSString+Helper.m */,
+				4A1F2D2A2169B30E00882130 /* UIColor+Extension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -143,6 +145,15 @@
 				102BF1731D7B3B4400C4E8CA /* URLSearchResultsController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4A1F2D292169B25700882130 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				10A6D6861D357B7B00FCFE75 /* TabButton.swift */,
+				4A1F2CF32165241500882130 /* ScrollableTabView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +263,7 @@
 				10EF1A691D2785D30050DE8A /* MainViewController.swift in Sources */,
 				10A6D6871D357B7B00FCFE75 /* TabButton.swift in Sources */,
 				102BF1741D7B3B4400C4E8CA /* URLSearchResultsController.swift in Sources */,
+				4A1F2D2B2169B30E00882130 /* UIColor+Extension.swift in Sources */,
 				102BF1761D7BFAB000C4E8CA /* WebHistory.swift in Sources */,
 				10EF1A671D2785D30050DE8A /* AppDelegate.swift in Sources */,
 				103B794B1D2F9D64001B9233 /* WebViewController.swift in Sources */,
