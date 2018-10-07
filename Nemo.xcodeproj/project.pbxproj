@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		102BF1741D7B3B4400C4E8CA /* URLSearchResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102BF1731D7B3B4400C4E8CA /* URLSearchResultsController.swift */; };
 		102BF1761D7BFAB000C4E8CA /* WebHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102BF1751D7BFAB000C4E8CA /* WebHistory.swift */; };
 		103570E81D44E1CC000A4698 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 103570E71D44E1CC000A4698 /* NSString+Helper.m */; };
 		103B794B1D2F9D64001B9233 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B794A1D2F9D64001B9233 /* WebViewController.swift */; };
@@ -34,7 +33,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		102BF1731D7B3B4400C4E8CA /* URLSearchResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSearchResultsController.swift; sourceTree = "<group>"; };
 		102BF1751D7BFAB000C4E8CA /* WebHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebHistory.swift; sourceTree = "<group>"; };
 		103570E11D44E0CA000A4698 /* Nemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		103570E61D44E1CC000A4698 /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helper.h"; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 			children = (
 				10EF1A681D2785D30050DE8A /* MainViewController.swift */,
 				103B794A1D2F9D64001B9233 /* WebViewController.swift */,
-				102BF1731D7B3B4400C4E8CA /* URLSearchResultsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -262,7 +259,6 @@
 			files = (
 				10EF1A691D2785D30050DE8A /* MainViewController.swift in Sources */,
 				10A6D6871D357B7B00FCFE75 /* TabButton.swift in Sources */,
-				102BF1741D7B3B4400C4E8CA /* URLSearchResultsController.swift in Sources */,
 				4A1F2D2B2169B30E00882130 /* UIColor+Extension.swift in Sources */,
 				102BF1761D7BFAB000C4E8CA /* WebHistory.swift in Sources */,
 				10EF1A671D2785D30050DE8A /* AppDelegate.swift in Sources */,

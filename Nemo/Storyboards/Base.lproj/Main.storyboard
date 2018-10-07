@@ -158,29 +158,62 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0l-dX-WyW" userLabel="Search View">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9xK-4K-CX6">
+                                        <rect key="frame" x="8" y="11.666666666666664" width="333" height="21"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go"/>
+                                        <connections>
+                                            <action selector="handleTextFieldEdit:" destination="BYZ-38-t0r" eventType="editingChanged" id="a4J-2X-yIv"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="4lN-Tt-ZS1"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzw-74-Psg">
+                                        <rect key="frame" x="345" y="11" width="22" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="22" id="may-11-pNM"/>
+                                        </constraints>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="dzw-74-Psg" secondAttribute="trailing" constant="8" id="3FU-Mi-RQc"/>
+                                    <constraint firstItem="9xK-4K-CX6" firstAttribute="centerY" secondItem="t0l-dX-WyW" secondAttribute="centerY" id="A9S-De-gSM"/>
+                                    <constraint firstItem="9xK-4K-CX6" firstAttribute="leading" secondItem="t0l-dX-WyW" secondAttribute="leading" constant="8" id="dny-59-ags"/>
+                                    <constraint firstItem="dzw-74-Psg" firstAttribute="centerY" secondItem="t0l-dX-WyW" secondAttribute="centerY" id="f8k-hi-Ovu"/>
+                                    <constraint firstItem="dzw-74-Psg" firstAttribute="leading" secondItem="9xK-4K-CX6" secondAttribute="trailing" constant="4" id="jJT-qQ-FPA"/>
                                     <constraint firstAttribute="height" constant="44" id="znq-pc-F3Q"/>
                                 </constraints>
                             </view>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iov-bV-DEq" customClass="NemoWebView" customModule="Nemo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <color key="backgroundColor" red="0.28958413004875183" green="0.31462949514389038" blue="0.32950475811958313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kds-vj-I4E">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kds-vj-I4E" secondAttribute="trailing" id="7hR-Ly-dng"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Iov-bV-DEq" secondAttribute="bottom" id="CXd-8L-4Ym"/>
                             <constraint firstItem="t0l-dX-WyW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FFi-kj-tQe"/>
                             <constraint firstItem="Iov-bV-DEq" firstAttribute="top" secondItem="t0l-dX-WyW" secondAttribute="bottom" id="OY6-Nu-KE2"/>
                             <constraint firstAttribute="trailing" secondItem="Iov-bV-DEq" secondAttribute="trailing" id="Q8Y-Ps-sOe"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kds-vj-I4E" secondAttribute="bottom" id="URW-YC-bG0"/>
                             <constraint firstItem="Iov-bV-DEq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cCi-ht-g2O"/>
-                            <constraint firstItem="t0l-dX-WyW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="jMO-Fg-meX"/>
+                            <constraint firstItem="kds-vj-I4E" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cfr-Sn-38e"/>
+                            <constraint firstItem="t0l-dX-WyW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="jMO-Fg-meX"/>
+                            <constraint firstItem="kds-vj-I4E" firstAttribute="top" secondItem="t0l-dX-WyW" secondAttribute="bottom" id="oPI-dd-Mou"/>
                             <constraint firstAttribute="trailing" secondItem="t0l-dX-WyW" secondAttribute="trailing" id="phm-2a-bPD"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchResultsTableView" destination="kds-vj-I4E" id="IeC-LI-bN8"/>
+                        <outlet property="searchTextField" destination="9xK-4K-CX6" id="i32-ba-vOr"/>
                         <outlet property="searchView" destination="t0l-dX-WyW" id="MJV-AE-JOc"/>
                         <outlet property="searchViewHeightConstraint" destination="znq-pc-F3Q" id="CGh-58-IMt"/>
                         <outlet property="webView" destination="Iov-bV-DEq" id="h0B-zQ-aeO"/>
@@ -188,7 +221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="441" y="138"/>
+            <point key="canvasLocation" x="440.80000000000001" y="137.4384236453202"/>
         </scene>
         <!--URL Search Results Controller-->
         <scene sceneID="WZb-Yg-dTl">
