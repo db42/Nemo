@@ -70,15 +70,6 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     footerScrollView.setContentOffset(CGPoint(x: footerScrollView.contentSize.width, y: 44), animated: false)
   }
   
-  func button(forVC vc: WebViewController) -> TabButton? {
-    return footerScrollView.tabViews.filter { (view) -> Bool in
-      if let button = view as? TabButton {
-        return button.webVC == vc
-      }
-      return false
-    }.first as? TabButton
-  }
-  
   func selectedWebVC() -> WebViewController {
     return children.first as! WebViewController
   }
@@ -92,7 +83,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     vc.willMove(toParent: nil)
     vc.removeFromParent()
     
-    button(forVC: vc)?.layer.borderColor = UIColor.clear.cgColor
+    vc.tabButton.layer.borderColor = UIColor.clear.cgColor
   }
   
   @IBOutlet weak var goBack: UIButton!
@@ -123,6 +114,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     guard let index = viewControllers.index(of: webVC) else {
       return
     }
+    
     
     lastRemovedTab = (webVC, button, index)
     undoButton.isHidden = false
@@ -179,9 +171,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     contentView.addSubview(webVC.view)
     webVC.didMove(toParent: self)
     
-    if let button = button(forVC: webVC) {
-      button.layer.borderColor = button.tintColor.cgColor
-    }
+    webVC.tabButton.layer.borderColor = webVC.tabButton.tintColor.cgColor
   }
   
   func createAndUpdateNewWebView() {
@@ -210,7 +200,8 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
   
   //MARK: Footer stack view
   func createAndAddTabButtonToFooter(_ webVC: WebViewController) {
-    let button = footerScrollView.createTabButton()
+    let button = footerScrollView.createAndAddTabButton()
+    webVC.tabButton = button
     button.webVC = webVC
   }
 
@@ -225,8 +216,7 @@ extension MainViewController: MainVCWebDelegate {
     }
     
     DispatchQueue.main.async {
-      if let tabView = self.button(forVC: webVC),
-        let imageView = tabView.subviews.first as? UIImageView {
+      if let imageView = webVC.tabButton.subviews.first as? UIImageView {
         imageView.image = image
       }
     }

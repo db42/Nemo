@@ -19,4 +19,18 @@ class TabButton: UIView {
     */
   weak var webVC: WebViewController?
 
+  convenience init() {
+    self.init(frame: CGRect(x: 0,y: 0,width: 44,height: 44))
+    self.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
+    self.widthAnchor.constraint(equalToConstant: 44.0).isActive = true
+    let image = UIImageView(frame: self.bounds.insetBy(dx: 6, dy: 4))
+    
+    
+    image.image = UIImage(named: "favicon")
+    self.layer.cornerRadius = 2.0
+    self.layer.masksToBounds = true
+    self.layer.borderWidth = 1
+    //    tabView.backgroundColor = UIColor.whiteColor()
+    self.addSubview(image)
+  }
 }

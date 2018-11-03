@@ -20,6 +20,7 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
   @IBOutlet weak var searchResultsTableView: UITableView!
   @IBOutlet weak var webView: NemoWebView!
   weak var delegate: MainVCWebDelegate?
+  weak var tabButton: TabButton!
   
   @IBOutlet weak var searchViewHeightConstraint: NSLayoutConstraint!
   var url: URL?
@@ -86,6 +87,13 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
   
   func reloadPage() {
     webView.reload()
+  }
+  
+  func reset() { //Incomplete
+    //reset URL
+    //reset tab button
+    self.url = nil
+//    webView.
   }
   
   fileprivate func openWebPageForUserText(_ text: String) {
@@ -171,10 +179,12 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
     let scrollPos = scrollView.contentOffset.y
     if scrollPos > currentOffset {
       UIView.animate(withDuration: 0.25, animations: {
+        self.searchView.isHidden = true
         self.searchViewHeightConstraint.constant = 0
         self.delegate?.hideTabBarFooter()
       })
     } else {
+      searchView.isHidden = false
       searchViewHeightConstraint.constant = 44
       delegate?.showTabBarFooter()
     }

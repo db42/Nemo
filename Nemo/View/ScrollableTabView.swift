@@ -23,8 +23,8 @@ class ScrollableTabView: UIScrollView {
         // Drawing code
     }
     */
-  var originalFrame: CGRect = CGRect.zero
-  weak var stackView: UIStackView!
+  fileprivate var originalFrame: CGRect = CGRect.zero
+  fileprivate weak var stackView: UIStackView!
   weak var tabViewDelegate: ScrollableTabViewDelegate!
   
   required init?(coder aDecoder: NSCoder) {
@@ -42,28 +42,44 @@ class ScrollableTabView: UIScrollView {
       ])
     self.stackView = stackView
   }
-  
-  var tabViews: [UIView] {
-    return stackView?.subviews ?? []
-  }
-  
-  func addTabView(_ button: UIView) {
-    stackView?.addArrangedSubview(button)
-  }
-  
-  func insertTabView(_ button: UIView, at index: Int) {
-    stackView.insertArrangedSubview(button, at: index)
-  }
-  
+
   func removeTabView(_ button: UIView) {
     stackView.removeArrangedSubview(button)
   }
+
+  func createAndAddTabButton() -> TabButton {
+    let tabView = TabButton()
+    addGesturesTo(tabButton: tabView)
+    addTabButton(tabView)
+    return tabView
+  }
+
+  func addTabButton(_ button: UIView, index: Int? = nil) {
+    if let index = index {
+      insertTabView(button, at: index)
+      return
+    }
+    
+    addTabView(button)
+    let x = contentSize.width + button.bounds.width - bounds.width
+    if x > 0 {
+      setContentOffset(CGPoint(x: x, y: 0), animated: true)
+    }
+  }
+
+  fileprivate var tabViews: [UIView] {
+    return stackView?.subviews ?? []
+  }
   
-  func createTabButton() -> TabButton {
-    let tabView = TabButton(frame: CGRect(x: 0,y: 0,width: 44,height: 44))
-    tabView.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
-    tabView.widthAnchor.constraint(equalToConstant: 44.0).isActive = true
-    let image = UIImageView(frame: tabView.bounds.insetBy(dx: 6, dy: 4))
+  fileprivate func addTabView(_ button: UIView) {
+    stackView?.addArrangedSubview(button)
+  }
+  
+  fileprivate func insertTabView(_ button: UIView, at index: Int) {
+    stackView.insertArrangedSubview(button, at: index)
+  }
+
+  fileprivate func addGesturesTo(tabButton tabView: TabButton) {
     let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(updateCurrentWebView(_:)))
     singleTapGesture.numberOfTapsRequired = 1
     
@@ -73,39 +89,27 @@ class ScrollableTabView: UIScrollView {
     let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
     panGesture.delegate = self
     tabView.addGestureRecognizer(panGesture)
-
+    
     //    singleTapGesture.requireGestureRecognizerToFail(doubleTapGesture)
     tabView.addGestureRecognizer(singleTapGesture)
     tabView.addGestureRecognizer(doubleTapGesture)
-    
-    image.image = UIImage(named: "favicon")
-    tabView.layer.cornerRadius = 2.0
-    tabView.layer.masksToBounds = true
-    tabView.layer.borderWidth = 1
-    //    tabView.backgroundColor = UIColor.whiteColor()
-    tabView.addSubview(image)
-    
-    addTabButton(tabView)
-    return tabView
   }
-  
-  
-  @objc func reloadPage(_ gesture: UIGestureRecognizer) {
+
+  @objc fileprivate func reloadPage(_ gesture: UIGestureRecognizer) {
     guard let button = gesture.view as? TabButton else {
       return
     }
     tabViewDelegate.reloadTab(button)
   }
   
-  @objc func updateCurrentWebView(_ gesture: UIGestureRecognizer) {
+  @objc fileprivate func updateCurrentWebView(_ gesture: UIGestureRecognizer) {
     guard let button = gesture.view as? TabButton else {
       return
     }
     tabViewDelegate.selectTab(button)
   }
   
-  
-  @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+  @objc fileprivate func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
     guard let button = gesture.view as? TabButton,
       let webVC = button.webVC else {
         return
@@ -126,19 +130,6 @@ class ScrollableTabView: UIScrollView {
       }
     default:
       break
-    }
-  }
-  
-  func addTabButton(_ button: UIView, index: Int? = nil) {
-    if let index = index {
-      insertTabView(button, at: index)
-      return
-    }
-    
-    addTabView(button)
-    let x = contentSize.width + button.bounds.width - bounds.width
-    if x > 0 {
-      setContentOffset(CGPoint(x: x, y: 0), animated: true)
     }
   }
 }
