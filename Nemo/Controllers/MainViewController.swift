@@ -119,7 +119,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     lastRemovedTab = (webVC, button, index)
     undoButton.isHidden = false
     Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(hideUndoButton), userInfo: nil, repeats: false)
-    footerScrollView.removeTabView(button)
+    footerScrollView.removeTabButton(button)
     button.removeFromSuperview()
     if children.first == webVC {
       hideCurrentWebView()

@@ -52,7 +52,7 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
     hideKeyboardGesture.delegate = self
     webView.addGestureRecognizer(hideKeyboardGesture)
   }
-  
+
   fileprivate func hideSearchResultsTableView() {
     searchResultsTableView.isHidden = true
   }

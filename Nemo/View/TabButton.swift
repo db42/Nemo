@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum State {
+  
+}
+
 class TabButton: UIView {
 
     /*
@@ -33,4 +37,5 @@ class TabButton: UIView {
     //    tabView.backgroundColor = UIColor.whiteColor()
     self.addSubview(image)
   }
+  
 }

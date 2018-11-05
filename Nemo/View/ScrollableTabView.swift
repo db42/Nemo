@@ -43,7 +43,7 @@ class ScrollableTabView: UIScrollView {
     self.stackView = stackView
   }
 
-  func removeTabView(_ button: UIView) {
+  func removeTabButton(_ button: UIView) {
     stackView.removeArrangedSubview(button)
   }
 
