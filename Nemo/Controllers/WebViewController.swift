@@ -20,7 +20,7 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
   @IBOutlet weak var searchResultsTableView: UITableView!
   @IBOutlet weak var webView: NemoWebView!
   weak var delegate: MainVCWebDelegate?
-  weak var tabButton: TabButton!
+  weak var tabButton: TabButton?
   
   @IBOutlet weak var searchViewHeightConstraint: NSLayoutConstraint!
   var url: URL?
@@ -63,6 +63,7 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
     searchTextField.resignFirstResponder()
     hideSearchResultsTableView()
     webView.loadRequest(URLRequest(url: url))
+    tabButton?.isLoading = true
   }
   
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -138,10 +139,15 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
       let ur = URL(string: urlString)!
       if let data = try? Data(contentsOf: ur),
         let image = UIImage(data: data) {
+          self.tabButton?.isLoading = false
           print(ur)
           self.delegate?.webVC(self, faviconDidLoad: image)
       }
     }
+  }
+  
+  func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    self.tabButton?.isLoading = false
   }
   
   func webViewDidStartLoad(_ webView: UIWebView) {

@@ -83,7 +83,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     vc.willMove(toParent: nil)
     vc.removeFromParent()
     
-    vc.tabButton.layer.borderColor = UIColor.clear.cgColor
+    vc.tabButton?.layer.borderColor = UIColor.clear.cgColor
   }
   
   @IBOutlet weak var goBack: UIButton!
@@ -171,7 +171,7 @@ class MainViewController: UIViewController, UIGestureRecognizerDelegate {
     contentView.addSubview(webVC.view)
     webVC.didMove(toParent: self)
     
-    webVC.tabButton.layer.borderColor = webVC.tabButton.tintColor.cgColor
+    webVC.tabButton?.layer.borderColor = webVC.tabButton?.tintColor.cgColor
   }
   
   func createAndUpdateNewWebView() {
@@ -216,7 +216,7 @@ extension MainViewController: MainVCWebDelegate {
     }
     
     DispatchQueue.main.async {
-      if let imageView = webVC.tabButton.subviews.first as? UIImageView {
+      if let imageView = webVC.tabButton?.subviews.first as? UIImageView {
         imageView.image = image
       }
     }

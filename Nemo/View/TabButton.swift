@@ -8,9 +8,6 @@
 
 import UIKit
 
-enum State {
-  
-}
 
 class TabButton: UIView {
 
@@ -22,7 +19,37 @@ class TabButton: UIView {
     }
     */
   weak var webVC: WebViewController?
-
+  weak var indicator: UIActivityIndicatorView?
+  weak var iconView: UIImageView?
+  
+  var isLoading: Bool = false {
+    didSet {
+      OperationQueue.main.addOperation {
+        if self.isLoading {
+          self.iconView?.isHidden = true
+          
+          if self.indicator == nil {
+            let indicator = UIActivityIndicatorView(style: .gray)
+            indicator.translatesAutoresizingMaskIntoConstraints = false
+            
+            indicator.hidesWhenStopped = true
+            self.addSubview(indicator)
+            
+            indicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+            indicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            self.indicator = indicator
+          }
+          
+          self.indicator?.startAnimating()
+        } else {
+          self.iconView?.isHidden = false
+          self.indicator?.stopAnimating()
+          self.indicator?.isHidden = true
+        }
+      }
+    }
+  }
+  
   convenience init() {
     self.init(frame: CGRect(x: 0,y: 0,width: 44,height: 44))
     self.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
@@ -36,6 +63,7 @@ class TabButton: UIView {
     self.layer.borderWidth = 1
     //    tabView.backgroundColor = UIColor.whiteColor()
     self.addSubview(image)
+    iconView = image
   }
   
 }
