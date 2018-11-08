@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum State {
+  case NewTab
+  case Loading
+  case Loaded(Bool)
+}
 
 class TabButton: UIView {
 
@@ -22,10 +27,12 @@ class TabButton: UIView {
   weak var indicator: UIActivityIndicatorView?
   weak var iconView: UIImageView?
   
-  var isLoading: Bool = false {
+  var state: State = .NewTab {
     didSet {
       OperationQueue.main.addOperation {
-        if self.isLoading {
+
+        switch self.state {
+        case .Loading:
           self.iconView?.isHidden = true
           
           if self.indicator == nil {
@@ -41,7 +48,12 @@ class TabButton: UIView {
           }
           
           self.indicator?.startAnimating()
-        } else {
+        case .Loaded(let success):
+          self.iconView?.isHidden = false
+          self.indicator?.stopAnimating()
+          self.indicator?.isHidden = true
+          //todo if !success, update iconView image to show failed state
+        default:
           self.iconView?.isHidden = false
           self.indicator?.stopAnimating()
           self.indicator?.isHidden = true

@@ -63,7 +63,7 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
     searchTextField.resignFirstResponder()
     hideSearchResultsTableView()
     webView.loadRequest(URLRequest(url: url))
-    tabButton?.isLoading = true
+    tabButton?.state = .Loading
   }
   
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -139,7 +139,7 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
       let ur = URL(string: urlString)!
       if let data = try? Data(contentsOf: ur),
         let image = UIImage(data: data) {
-          self.tabButton?.isLoading = false
+          self.tabButton?.state = .Loaded(true)
           print(ur)
           self.delegate?.webVC(self, faviconDidLoad: image)
       }
@@ -147,7 +147,7 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
   }
   
   func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-    self.tabButton?.isLoading = false
+    self.tabButton?.state = .Loaded(false)
   }
   
   func webViewDidStartLoad(_ webView: UIWebView) {
