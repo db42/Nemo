@@ -86,6 +86,24 @@ class WebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognize
     }
   }
   
+  @IBAction func showPageActions(_ sender: UIButton) {
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    let reload = UIAlertAction(title: "Reload", style: .default) { (_) in
+      self.reloadPage()
+    }
+    
+    let closeTab = UIAlertAction(title: "Close tab", style: .destructive) { (_) in
+      
+    }
+    
+    let close = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    
+    alert.addAction(reload)
+    alert.addAction(closeTab)
+    alert.addAction(close)
+    self.present(alert, animated: true, completion: nil)
+  }
+  
   func reloadPage() {
     webView.reload()
   }

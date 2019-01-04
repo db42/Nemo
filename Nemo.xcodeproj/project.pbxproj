@@ -20,6 +20,7 @@
 		4A1F2CF2216351FF00882130 /* WebHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1F2CF1216351FF00882130 /* WebHistoryTests.swift */; };
 		4A1F2CF42165241500882130 /* ScrollableTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1F2CF32165241500882130 /* ScrollableTabView.swift */; };
 		4A1F2D2B2169B30E00882130 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1F2D2A2169B30E00882130 /* UIColor+Extension.swift */; };
+		4AD4F4AC21D7517400172954 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD4F4AB21D7517400172954 /* Trie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		4A1F2CF1216351FF00882130 /* WebHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebHistoryTests.swift; sourceTree = "<group>"; };
 		4A1F2CF32165241500882130 /* ScrollableTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableTabView.swift; sourceTree = "<group>"; };
 		4A1F2D2A2169B30E00882130 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		4AD4F4AB21D7517400172954 /* Trie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				4A1F2D2621685EB800882130 /* Storyboards */,
 				4A1F2D292169B25700882130 /* View */,
 				102BF1751D7BFAB000C4E8CA /* WebHistory.swift */,
+				4AD4F4AB21D7517400172954 /* Trie.swift */,
 			);
 			path = Nemo;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				10EF1A691D2785D30050DE8A /* MainViewController.swift in Sources */,
 				10A6D6871D357B7B00FCFE75 /* TabButton.swift in Sources */,
 				4A1F2D2B2169B30E00882130 /* UIColor+Extension.swift in Sources */,
+				4AD4F4AC21D7517400172954 /* Trie.swift in Sources */,
 				102BF1761D7BFAB000C4E8CA /* WebHistory.swift in Sources */,
 				10EF1A671D2785D30050DE8A /* AppDelegate.swift in Sources */,
 				103B794B1D2F9D64001B9233 /* WebViewController.swift in Sources */,
